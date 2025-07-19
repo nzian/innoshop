@@ -4,8 +4,9 @@
 @section('title', __('panel/menu.categories'))
 
 @section('page-title-right')
-  <a href="{{ panel_route('categories.create') }}" class="btn btn-primary"><i
-        class="bi bi-plus-square"></i> {{ __('panel/common.create') }}</a>
+  <a href="{{ panel_route('categories.create') }}" class="btn btn-primary">
+    <i class="bi bi-plus-square"></i> {{ __('panel/common.create') }}
+  </a>
 @endsection
 
 @section('content')
@@ -42,8 +43,23 @@
               <div class="form-check form-switch list-switch ms-2">
                 <input class="form-check-input" type="checkbox" role="switch" ${item.active ? 'checked' : ''}>
               </div>
-              <a href="${categoryIndexUrl}/${item.id}/edit" class="btn btn-sm text-nowrap edit-category btn-outline-primary ms-3">{{ __('panel/common.edit')}}</a>
-              <span class="btn btn-sm ms-2 text-nowrap btn-outline-danger btn-delete">{{ __('panel/common.delete')}}</span>
+              <div class="dropdown ms-3">
+                <button class="btn btn-sm btn-outline-secondary dropdown-toggle no-caret" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a class="dropdown-item edit-category" href="${categoryIndexUrl}/${item.id}/edit">
+                      <i class="bi bi-pencil-square"></i> {{ __('panel/common.edit') }}
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item text-danger btn-delete" href="javascript:void(0);">
+                      <i class="bi bi-trash"></i> {{ __('panel/common.delete') }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </h2>`;
@@ -92,10 +108,18 @@
     });
   });
 
-
   $(document).on('click', '.btn-delete', function() {
     const id = $(this).closest('.tool-btn').data('id');
     inno.confirmDelete(`${api}/${id}`)
   });
 </script>
+@endpush
+
+@push('styles')
+<style>
+  /* Remove the default caret from dropdown toggle */
+  .dropdown-toggle.no-caret::after {
+    display: none !important;
+  }
+</style>
 @endpush
