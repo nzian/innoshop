@@ -1,28 +1,39 @@
-// $primary: #3d7bfa;
-// $primary: #1165ff;
+// Import Google Font: Roboto
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+// Set custom font family
+$font-family-base: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+// Primary color
 $primary: #409eff;
 
+// Font sizes
 $font-size-base: 0.84rem;
 
+// Border radius
 $border-radius: 0.2rem;
 $btn-border-radius: 0.2rem;
 $btn-border-radius-sm: 0.2rem;
 $btn-border-radius-lg: 0.2rem;
 
+// Input focus shadow
 $input-btn-focus-box-shadow: 0 0 11px 0 rgba($color: $primary, $alpha: .1);
 $input-bg: #fff;
 
+// Modal background
 $modal-content-bg: #fff;
 
-// 开启负边距
+// Enable negative margins
 $enable-negative-margins: true;
 $input-padding-y: 0.485rem;
 $input-font-size: 0.9rem;
 $body-bg: #f3f8fc;
 
+// Table
 $table-border-color: #e9ecef;
 $table-bg: transparent;
 
+// Bootstrap Icons
 $bootstrap-icons-font: "bootstrap-icons" !default;
 $bootstrap-icons-font-src: url("/vendor/bootstrap-icons/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb") format("woff2"),
 url("/vendor/bootstrap-icons/bootstrap-icons.woff?08efbba7c53d8c5413793eecb19b20bb") format("woff") !default;
@@ -33,26 +44,30 @@ url("/vendor/bootstrap-icons/bootstrap-icons.woff?08efbba7c53d8c5413793eecb19b20
   src: $bootstrap-icons-font-src;
 }
 
+// Card
 $card-border-radius: .4rem;
 $card-border-color: rgba(231, 234, 243, 0.7);
 $card-box-shadow: 0 0.375rem 0.75rem rgba(140,152,164,.075);
 $card-spacer-y: 1.2rem;
 $card-spacer-x: 1.2rem;
 $card-bg: #fff;
-//header
+
+// Card header
 $card-cap-bg: transparent;
 $card-cap-padding-y: 1rem;
 
+// Accordion
 $accordion-active-bg: transparent;
 $accordion-bg: transparent;
 
+// Dropdown
 $dropdown-box-shadow: 0 0.8rem 2.5rem 0.6125rem rgba(140, 152, 164, 0.286);
 $dropdown-item-padding-y:  0.45rem;
 $dropdown-border-color:  rgba(0, 0, 0, 0.064);
-// $dropdown-border-color: transparent;
 $dropdown-border-radius: 0.4rem;
 $dropdown-bg :#fff;
 
+// Pagination
 $pagination-border-width: 0;
 $pagination-bg: #f4f4f5;
 $pagination-color: #606266;
@@ -76,6 +91,7 @@ $pagination-focus-color: #606266;
   }
 }
 
+// Form validation
 $form-validation-states: (
   "invalid": (
     "color": #dc3545,
@@ -83,6 +99,7 @@ $form-validation-states: (
   )
 );
 
+// Buttons
 .btn.btn-primary {
   color: #fff;
   &:hover {
@@ -90,5 +107,6 @@ $form-validation-states: (
   }
 }
 
+// Imports
 @import 'bootstrap-icons';
 @import 'node_modules/bootstrap/scss/bootstrap';

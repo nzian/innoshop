@@ -3,7 +3,7 @@
     @foreach($menuLinks as $index => $menuLink)
       @if(isset($menuLink['type']) && $menuLink['type'] == 'divider')
         <div class="px-3 mt-4">
-          <div class="text-secondary small opacity-75 mb-2">{{ $menuLink['title'] }}</div>
+          <div class="text-secondary small opacity-75 mb-2 text-white">{{ $menuLink['title'] }}</div>
           <hr class="dropdown-divider mt-0 mb-2">
         </div>
       @else
@@ -35,9 +35,15 @@
                 <ul class="nav flex-column">
                   @foreach($menuLink['children'] as $child)
                     <li class="nav-item">
-                      <a href="{{ $child['url'] }}" @if($child['blank'] ?? false) target="_blank" @endif
-                      class="nav-link {{ $child['active'] ? 'active' : '' }}">{{ $child['title'] }}</a>
-                    </li>
+  <a href="{{ $child['url'] }}" 
+     @if($child['blank'] ?? false) target="_blank" @endif
+     class="nav-link {{ $child['active'] ? 'active' : '' }}">
+    @if(!empty($child['icon']))
+      <i class="bi {{ $child['icon'] }} pr-2"></i>
+    @endif
+    {{ $child['title'] }}
+  </a>
+</li>
                   @endforeach
                 </ul>
               </div>

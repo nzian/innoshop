@@ -1,7 +1,7 @@
-<div class="tab-pane fade mt-3" id="addition-tab-pane" role="tabpanel" aria-labelledby="addition-tab"
-     tabindex="3">
-  <div class="d-flex flex-column flex-sm-row gap-3">
-    <div class="col-12 col-sm-6">
+<div class="tab-pane fade mt-3" id="addition-tab-pane" role="tabpanel" aria-labelledby="addition-tab" tabindex="3">
+  <div class="row g-3">
+    <!-- ✅ Column 1 -->
+    <div class="col-12 col-lg-4">
       <x-common-form-select :title="__('panel/product.tax_class')" name="tax_class_id"
                             :value="old('tax_class_id', $product->tax_class_id ?? 0)" :options="$tax_classes"
                             key="id" label="name"/>
@@ -18,6 +18,16 @@
         </div>
       </div>
 
+      <x-common-form-input :title="__('panel/product.sales')" name="sales"
+                           :value="old('sales', $product->sales ?? '')"
+                           :placeholder="__('panel/product.sales')"/>
+      <x-common-form-input :title="__('panel/product.viewed')" name="viewed"
+                           :value="old('viewed', $product->viewed ?? '')"
+                           :placeholder="__('panel/product.viewed')"/>
+    </div>
+
+    <!-- ✅ Column 2 -->
+    <div class="col-12 col-lg-4">
       <x-common-form-select :title="__('panel/product.brand')" name="brand_id"
                             :value="old('brand_id', $product->brand_id ?? 0)" :options="$brands"
                             key="id" label="name"/>
@@ -27,18 +37,26 @@
       <x-common-form-input :title="__('panel/product.position')" name="position"
                            :value="old('position', $product->position ?? '')"
                            :placeholder="__('panel/product.position')"/>
+
+      <!-- ✅ Moved Is Virtual here -->
+      <div class="mt-3">
+        <x-common-form-switch-radio :title="__('panel/product.is_virtual')" name="is_virtual"
+                                    :value="old('is_virtual', $product->is_virtual ?? false)"/>
+      </div>
     </div>
-    <div class="col-12 col-sm-6">
+
+    <!-- ✅ Column 3 -->
+    <div class="col-12 col-lg-4">
       <x-panel::form.row title="{{ __('panel/product.category') }}">
         <div class="category-select">
           @if ($categories->count())
-            <div class="category-search">
+            <div class="category-search mb-2">
               <input type="text" class="form-control" placeholder="{{ __('panel/common.filter') }}">
             </div>
-            <ul>
+            <ul class="list-unstyled" style="max-height: 250px; overflow-y: auto;">
               @foreach ($categories as $category)
                 <li>
-                  <label>
+                  <label class="d-flex align-items-center gap-2">
                     <input type="checkbox" name="categories[]" value="{{ $category->id }}"
                       {{ in_array($category->id, old('categories', $product->categories->pluck('id')->toArray())) ? 'checked' : '' }}>
                     <span class="name">{{ $category->fallbackName() }}</span>
@@ -49,12 +67,6 @@
           @endif
         </div>
       </x-panel::form.row>
-      <x-common-form-input :title="__('panel/product.sales')" name="sales" :value="old('sales', $product->sales ?? '')"
-                           :placeholder="__('panel/product.sales')"/>
-      <x-common-form-input :title="__('panel/product.viewed')" name="viewed"
-                           :value="old('viewed', $product->viewed ?? '')" :placeholder="__('panel/product.viewed')"/>
     </div>
   </div>
-  <x-common-form-switch-radio :title="__('panel/product.is_virtual')" name="is_virtual"
-                              :value="old('is_virtual', $product->is_virtual ?? false)"/>
 </div>
