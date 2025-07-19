@@ -6,7 +6,7 @@
 
 <div class="card variants-box mb-3" id="variants-box">
   <div class="card-header">
-    <h5 class="card-title mb-0">{{ __('panel/product.variant') }}</h5>
+    <h5 class="card-title mb-0 from-label-title">{{ __('panel/product.variant') }}</h5>
   </div>
 
   <div class="card-body py-0">
@@ -36,7 +36,7 @@
             <div class="add-variant-form" v-else>
               <div class="mb-3 add-variant-title">
                 <div class="variant-label">
-                  <label class="form-label">{{ __('panel/product.variant_name') }}</label>
+                  <label class="form-label from-label-title">{{ __('panel/product.variant_name') }}</label>
                   <div class="v-locales-input">
     <div v-for="locale in locales" class="input-group" :key="locale.code">
         <span class="input-group-text">
@@ -53,7 +53,7 @@
                 </div>
               </div>
               <div class="add-variant-values">
-                <label class="form-label">{{ __('panel/product.variant_value') }}</label>
+                <label class="form-label from-label-title">{{ __('panel/product.variant_value') }}</label>
                 <div class="add-variant-value">
                   <div class="add-variant-value-item" v-for="(value, index) in variant.values" :key="index">
                     <div class="icon"><i class="bi bi-grip-vertical"></i></div>
@@ -69,7 +69,7 @@
                   </div>
                   <div class="add-variant-btns">
                     <div class="text-primary text-12 mb-3">
-                      <div class="d-inline-block cursor-pointer" @click="addVariantValue(index)"><i class="bi bi-plus-lg"></i> {{ __('panel/product.add_variant_value') }}</div>
+                      <div class="d-inline-block cursor-pointer font-weight-500" @click="addVariantValue(index)"><i class="bi bi-plus-lg"></i> {{ __('panel/product.add_variant_value') }}</div>
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
                       <button type="button" class="btn btn-outline-danger" @click="deleteVariant(index)">{{ __('panel/common.delete') }}</button>
@@ -84,7 +84,7 @@
       </draggable>
     </div>
     <div :class="['text-primary add-variant', !variants.length ? 'no-variants' : '']" v-if="variants.length < 3">
-      <div class="d-inline-block cursor-pointer" @click="addVariant"><i class="bi bi-plus-square me-1"></i> {{ __('panel/product.add_variant') }}</div>
+      <div class="d-inline-block cursor-pointer font-weight-500" @click="addVariant"><i class="bi bi-plus-square me-1"></i> {{ __('panel/product.add_variant') }}</div>
     </div>
     <div class="variant-skus-wrap" v-if="smallVariants.length">
       <div class="variant-skus-table table-responsive">
