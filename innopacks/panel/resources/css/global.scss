@@ -81,7 +81,7 @@ body {
 
 .header-box {
   height: 60px;
-  background-color: #fff;
+  background-color: #3D767D !important;
   border-bottom: 1px solid #eee;
   position: fixed;
   top: 0;
@@ -89,6 +89,7 @@ body {
   z-index: 9;
   padding: 0 16px;
   width: 100%;
+  color: white;
   > div {
     height: 100%;
   }
@@ -239,16 +240,18 @@ body {
       padding-top: 10px;
       height: 100%;
       transition: all .2s ease-in-out;
+      background-color: #3D767D !important;
+      
 
       @media (max-width: 992px) {
-        background-color: #fff;
+        background-color: #3D767D !important;
         position: absolute;
         max-height: calc(100vh - 49px);
         left: -100%;
         top: 0;
         width: 70%;
         z-index: 999;
-        border-top: 1px solid #eee;
+        border-top: 1px solid #3D767D;
       }
     }
 
@@ -287,16 +290,25 @@ body {
         a {
           padding: .4rem 1.25rem .4rem 1.9rem;
           margin-left: .85rem;
-          color: #666;
+          color: white;
           border-radius: 8px;
 
           &:hover  {
             background-color: #e4eff7;
+            color: #3D767D !important;
+            color: $primary;
+            margin-right: 10px !important;
+            margin-top: 5px;
+            margin-bottom: 5px;
           }
 
           &.active {
             background-color: #e4eff7;
+            color: #3D767D !important;
             color: $primary;
+            margin-right: 10px !important;
+            margin-top: 5px;
+            margin-bottom: 5px;
           }
         }
       }
@@ -304,6 +316,7 @@ body {
       a.accordion-button {
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
+        color: white !important;
         &::after {
           display: none;
         }
@@ -325,7 +338,7 @@ body {
           display: flex;
           justify-content: center;
           align-items: center;
-          color: #666;
+          color: white;
           font-family: 'bootstrap-icons';
           font-size: 12px;
           background-image: none;
@@ -586,3 +599,94 @@ body {
     }
   }
 }
+
+// custome
+.accordion-flush>.accordion-item>.accordion-header .accordion-button, .accordion-flush>.accordion-item>.accordion-header .accordion-button.collapsed
+ {
+    color: white !important;
+}
+
+.text-secondary {
+    color: rgb(134, 120, 120) !important;
+}
+ .button-primary{
+  background-color: #3D767D !important;
+ }
+
+ .text-primary {
+    color: #3D767D !important;
+}
+
+.table>thead {
+    background-color: #3D767D !important;
+}
+
+.table th {
+    color: white !important;
+}
+
+.text-white{
+  color: white !important;
+}
+
+.btn-primary{
+  background-color: #3D767D !important;
+}
+
+
+.v-locales-input {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 10px; 
+    align-items: center;
+}
+.v-locales-input .input-group {
+    flex: 1 1 250px; 
+}
+.v-locales-input .text-12.text-danger {
+    flex-basis: 100%; 
+    margin-top: 5px;
+}
+
+.text-color-primary{
+  color:#3D767D !important;
+}
+
+.text-color-primary th {
+    color:#3D767D !important;
+}
+
+.pr-2{
+  padding-right: .5rem !important;
+}
+
+.text-bold-primary-color {
+    color: #3d767d !important;
+    font-weight: 600;
+    font-size: 1rem !important;
+}
+
+.form-check-input:checked {
+    background-color: #3d767d !important;
+    border-color: #3d767d !important;
+}
+
+.from-label-title {
+    font-weight: 500 !important;
+    color: #696969 !important;
+    font-size: .9rem !important;
+}
+.col-form-label{
+    font-weight: 500 !important;
+    color: #696969 !important;
+}
+
+.page-title{
+    color: #657f82 !important;
+    font-size: 1.2rem !important;
+}
+
+
+// .test-black{
+//   color: black;
+// }

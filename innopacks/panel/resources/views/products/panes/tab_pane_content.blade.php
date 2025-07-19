@@ -1,6 +1,6 @@
 <div class="tab-pane fade mt-4" id="translation-tab-pane" role="tabpanel"
      aria-labelledby="translation-tab" tabindex="1">
-  <div class="mb-1 fs-6">{{ __('panel/product.content') }}</div>
+  <div class="mb-1 fs-6 from-label-title">{{ __('panel/product.content') }}</div>
   @if(has_translator())
     <div
       class="col-md-5 d-flex align-items-center my-3 py-2 px-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3"

@@ -38,12 +38,17 @@
                 <div class="variant-label">
                   <label class="form-label">{{ __('panel/product.variant_name') }}</label>
                   <div class="v-locales-input">
-                    <div v-for="locale in locales" class="input-group" :key="locale.code">
-                      <span class="input-group-text"><img :src="'/images/flag/'+ locale.code +'.png'" class="img-fluid">@{{ locale.name }}</span>
-                      <input type="text" class="form-control" v-model="variant.name[locale.code]" placeholder="{{ __('panel/product.variant_name_help') }}">
-                    </div>
-                    <span class="text-12 text-danger" style="margin-left: 100px" v-if="variant.error"><i class="bi bi-exclamation-circle"></i> {{ __('panel/common.verify_required') }}</span>
-                  </div>
+    <div v-for="locale in locales" class="input-group" :key="locale.code">
+        <span class="input-group-text">
+            <img :src="'/images/flag/'+ locale.code +'.png'" class="img-fluid">@{{ locale.name }}
+        </span>
+        <input type="text" class="form-control" v-model="variant.name[locale.code]" placeholder="{{ __('panel/product.variant_name_help') }}">
+    </div>
+    <span class="text-12 text-danger" v-if="variant.error">
+        <i class="bi bi-exclamation-circle"></i> {{ __('panel/common.verify_required') }}
+    </span>
+</div>
+
                     @hookinsert('panel.product.edit.variant_name.after')
                 </div>
               </div>
@@ -84,7 +89,7 @@
     <div class="variant-skus-wrap" v-if="smallVariants.length">
       <div class="variant-skus-table table-responsive">
         <table class="table align-middle">
-          <thead>
+          <thead class="text-color-primary">
             <tr>
               <th style="min-width: 220px">
                   <div class="batch-input-item mb-2">
