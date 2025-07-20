@@ -5,7 +5,7 @@
 <x-panel::form.right-btns />
 
 @section('content')
-<div class="card h-min-600">
+<div class="card">
   <div class="card-header">
     <h5 class="card-title mb-0">{{ $review->id ? __('panel/common.edit') : __('panel/common.create') }} {{ __('panel/review.review') }}</h5>
   </div>
@@ -19,7 +19,7 @@
       <div class="row">
         <div class="col-md-6">
           <div class="mb-3">
-            <label class="form-label">
+            <label class="form-label from-label-title">
               {{ __('panel/review.product') }}
               <span class="text-danger">*</span>
             </label>
@@ -36,7 +36,7 @@
         </div>
         <div class="col-md-6">
           <div class="mb-3">
-            <label class="form-label">
+            <label class="form-label from-label-title">
               {{ __('panel/review.customer') }}
               <span class="text-danger">*</span>
             </label>
@@ -56,7 +56,7 @@
       <input type="hidden" name="order_item_id" value="0">
 
       <div class="mb-3">
-        <label class="form-label">
+        <label class="form-label from-label-title">
           {{ __('panel/review.rating') }}
           <span class="text-danger">*</span>
         </label>

@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-end mb-3">
     <button class="btn btn-sm add-address btn-outline-primary">{{ __('panel/common.add') }}</button>
   </div>
-  <table class="table table-bordered mb-0">
+  <table class="table align-middle rounded border">
     <thead>
     <tr>
       <th>{{ __('panel/common.id') }}</th>
@@ -22,9 +22,28 @@
         <td>{{ $address['phone'] }}</td>
         <td>{{ $address['created_at'] }}</td>
         <td class="text-end">
-          <button type="button" class="btn btn-sm edit-address btn-outline-primary">{{ __('panel/common.edit') }}</button>
-          <button type="button" class="btn btn-sm btn-outline-danger delete-address">{{ __('panel/common.delete') }}</button>
-        </td>
+  <div class="dropdown">
+    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+            id="dropdownMenuButton{{ $item->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-three-dots-vertical"></i>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $item->id }}">
+      <!-- Edit -->
+      <li>
+        <a class="dropdown-item edit-address" href="javascript:void(0)">
+          <i class="bi bi-pencil-square"></i> {{ __('panel/common.edit') }}
+        </a>
+      </li>
+      <!-- Delete -->
+      <li>
+        <a class="dropdown-item text-danger delete-address" href="javascript:void(0)">
+          <i class="bi bi-trash"></i> {{ __('panel/common.delete') }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</td>
+
       </tr>
     @endforeach
     </tbody>

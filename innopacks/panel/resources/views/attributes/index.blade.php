@@ -15,15 +15,15 @@
 
     @if ($attributes->count())
     <div class="table-responsive">
-      <table class="table align-middle">
+      <table class="table align-middle rounded border">
         <thead>
           <tr>
-            <td>{{ __('panel/common.id')}}</td>
-            <td>{{ __('panel/common.name')}}</td>
-            <td>{{ __('panel/menu.attribute_groups')}}</td>
-            <td>{{ __('panel/common.position')}}</td>
-            <td>{{ __('panel/common.created_at')}}</td>
-            <td>{{ __('panel/common.actions')}}</td>
+            <td class="text-white">{{ __('panel/common.id')}}</td>
+            <td class="text-white">{{ __('panel/common.name')}}</td>
+            <td class="text-white">{{ __('panel/menu.attribute_groups')}}</td>
+            <td class="text-white">{{ __('panel/common.position')}}</td>
+            <td class="text-white">{{ __('panel/common.created_at')}}</td>
+            <td class="text-white">{{ __('panel/common.actions')}}</td>
           </tr>
         </thead>
         <tbody>
@@ -35,23 +35,28 @@
             <td>{{ $item->position }}</td>
             <td>{{ $item->created_at }}</td>
             <td>
-              <div class="d-flex gap-2">
-                <div>
-                  <a href="{{ panel_route('attributes.edit', [$item->id]) }}">
-                    <el-button size="small" plain type="primary">{{
-      __('panel/common.edit')}}</el-button>
-                  </a>
-                </div>
-                <div>
-                  <form ref="deleteForm" action="{{ panel_route('attributes.destroy', [$item->id]) }}" method="POST"
-                    class="d-inline">
-                    @csrf
-                    @method('DELETE')
-                    <el-button size="small" type="danger" plain @click="open({{$item->id}})">{{ __('panel/common.delete')}}</el-button>
-                  </form>
-                </div>
-              </div>
-            </td>
+  <div class="dropdown">
+    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton{{ $item->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-three-dots-vertical"></i>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $item->id }}">
+      <li>
+        <a class="dropdown-item" href="{{ panel_route('attributes.edit', [$item->id]) }}">
+          <i class="bi bi-pencil-square"></i> {{ __('panel/common.edit') }}
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item text-danger" href="javascript:void(0)" @click="open({{ $item->id }})">
+          <i class="bi bi-trash"></i> {{ __('panel/common.delete') }}
+        </a>
+      </li>
+    </ul>
+  </div>
+  <form ref="deleteForm" action="{{ panel_route('attributes.destroy', [$item->id]) }}" method="POST" style="display:none;">
+    @csrf
+    @method('DELETE')
+  </form>
+</td>
           </tr>
           @endforeach
         </tbody>

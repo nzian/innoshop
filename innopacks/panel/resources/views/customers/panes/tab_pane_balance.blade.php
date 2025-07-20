@@ -9,13 +9,13 @@
     <div class="card-body p-0">
       @if($transactions->count())
         <div class="table-responsive">
-          <table class="table table-bordered mb-0">
+          <table class="table align-middle rounded border">
             <thead>
               <tr>
-                <th>{{ __('panel/transaction.amount') }}</th>
-                <th>{{ __('panel/transaction.type') }}</th>
-                <th>{{ __('panel/transaction.comment') }}</th>
-                <th>{{ __('panel/common.created_at') }}</th>
+                <th class="text-white">{{ __('panel/transaction.amount') }}</th>
+                <th class="text-white">{{ __('panel/transaction.type') }}</th>
+                <th class="text-white">{{ __('panel/transaction.comment') }}</th>
+                <th class="text-white">{{ __('panel/common.created_at') }}</th>
               </tr>
             </thead>
             <tbody>

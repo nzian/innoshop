@@ -18,17 +18,17 @@
 
       @if ($reviews->count())
         <div class="table-responsive">
-          <table class="table align-middle">
+          <table class="table align-middle rounded border">
             <thead>
             <tr>
-              <td>{{ __('panel/review.id') }}</td>
-              <td>{{ __('panel/review.customer') }}</td>
-              <td>{{ __('panel/review.product') }}</td>
-              <td>{{ __('panel/review.rating') }}</td>
-              <td>{{ __('panel/review.review_content') }}</td>
-              <td>{{ __('panel/common.date') }}</td>
-              <td>{{ __('panel/common.active') }}</td>
-              <td>{{ __('panel/common.actions') }}</td>
+              <td class="text-white">{{ __('panel/review.id') }}</td>
+              <td class="text-white">{{ __('panel/review.customer') }}</td>
+              <td class="text-white">{{ __('panel/review.product') }}</td>
+              <td class="text-white">{{ __('panel/review.rating') }}</td>
+              <td class="text-white">{{ __('panel/review.review_content') }}</td>
+              <td class="text-white">{{ __('panel/common.date') }}</td>
+              <td class="text-white">{{ __('panel/common.active') }}</td>
+              <td class="text-white">{{ __('panel/common.actions') }}</td>
             </tr>
             </thead>
             <tbody>
@@ -61,9 +61,22 @@
                   @endif
                 </td>
                 <td>
-                  <button type="button" class="btn delete-review btn-sm btn-outline-danger"
-                          data-url="{{ panel_route('reviews.destroy', $review->id) }}">{{ __('front/common.delete') }}</button>
-                </td>
+  <div class="dropdown">
+    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+            id="dropdownMenuButton{{ $review->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-three-dots-vertical"></i>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $review->id }}">
+      <li>
+        <a class="dropdown-item text-danger delete-review"
+           href="javascript:void(0)"
+           data-url="{{ panel_route('reviews.destroy', $review->id) }}">
+          <i class="bi bi-trash"></i> {{ __('front/common.delete') }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</td>
               </tr>
             @endforeach
             </tbody>

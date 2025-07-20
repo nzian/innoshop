@@ -12,56 +12,80 @@
     @method($attribute->id ? 'PUT' : 'POST')
 
     <div class="row">
-      <div class="col-12 col-md-6">
-        <div class="card h-min-600">
+      <div class="col-12 col-md-12">
+        <div class="card ">
           <div class="card-header">
             <h5 class="card-title mb-0">{{ __('panel/menu.attributes') }}</h5>
           </div>
           <div class="card-body">
-            <x-common-form-input title="{{ __('panel/common.name') }}" :multiple="true" name="name"
-                                 :value="old('translations', $attribute->translations)"
-                                 placeholder="{{ __('panel/common.name') }}"/>
 
-            <x-common-form-select title="{{ __('panel/menu.attribute_groups') }}" name="attribute_group_id"
-                                  :options="$attribute_groups" key="id" label="name"
-                                  value="{{ old('attribute_group_id', $attribute->attribute_group_id) }}" required
-                                  placeholder="{{ __('panel/menu.attribute_groups') }}"/>
+    <x-common-form-input title="{{ __('panel/common.name') }}" :multiple="true" name="name"
+                         :value="old('translations', $attribute->translations)"
+                         placeholder="{{ __('panel/common.name') }}"/>
 
-            <x-common-form-input title="{{ __('panel/common.position') }}" name="position"
-                                 :value="old('position', $attribute->position)" required
-                                 placeholder="{{ __('panel/common.position') }}"/>
+            <div class="row">
+
+  <div class="col-md-6">
+    <x-common-form-select title="{{ __('panel/menu.attribute_groups') }}" name="attribute_group_id"
+                          :options="$attribute_groups" key="id" label="name"
+                          value="{{ old('attribute_group_id', $attribute->attribute_group_id) }}" required
+                          placeholder="{{ __('panel/menu.attribute_groups') }}"/>
+  </div>
+
+  <div class="col-md-6">
+    <x-common-form-input title="{{ __('panel/common.position') }}" name="position"
+                         :value="old('position', $attribute->position)" required
+                         placeholder="{{ __('panel/common.position') }}"/>
+  </div>
+</div>
+
           </div>
         </div>
       </div>
 
       @if($attribute->id)
-        <div class="col-12 col-md-6">
-          <div class="card h-min-600">
+        <div class="col-12 col-md-12 mt-2">
+          <div class="card">
             <div class="card-header d-flex justify-content-between">
               <h5 class="card-title mb-0">{{ __('panel/attribute.attribute_value') }}</h5>
               <button type="button"
                       class="btn btn-sm btn-outline-primary add-value">{{ __('panel/common.add') }}</button>
             </div>
             <div class="card-body">
-              <table class="table align-middle">
+              <table class="table align-middle rounded border">
                 <thead>
                 <tr>
-                  <td>{{ __('panel/common.id') }}</td>
-                  <td>{{ __('panel/common.name') }}</td>
-                  <td class="text-end">{{ __('panel/common.actions') }}</td>
+                  <td class="text-center text-white">{{ __('panel/common.id') }}</td>
+                  <td class="text-center text-white">{{ __('panel/common.name') }}</td>
+                  <td class="text-center text-white">{{ __('panel/common.actions') }}</td>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($attribute->values as $item)
                   <tr data-id="{{ $item->id }}">
-                    <td>{{ $item->id }}</td>
-                    <td>{{ $item->translation->name }}</td>
-                    <td class="text-end">
-                      <button type="button"
-                              class="btn btn-sm btn-outline-primary edit-value">{{ __('panel/common.edit') }}</button>
-                      <button type="button"
-                              class="btn btn-sm btn-outline-danger delete-value">{{ __('panel/common.delete') }}</button>
-                    </td>
+                    <td class="text-center">{{ $item->id }}</td>
+                    <td class="text-center">{{ $item->translation->name }}</td>
+                    <td class="text-center">
+  <div class="dropdown">
+    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+      <i class="bi bi-three-dots-vertical"></i>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end">
+      <li>
+        <a class="dropdown-item edit-value" href="javascript:void(0)">
+          <i class="bi bi-pencil-square"></i> {{ __('panel/common.edit') }}
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item text-danger delete-value" href="javascript:void(0)">
+          <i class="bi bi-trash"></i> {{ __('panel/common.delete') }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</td>
+
                   </tr>
                 @endforeach
                 </tbody>

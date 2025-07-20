@@ -20,13 +20,13 @@
         <div class="card-body">
           <ul class="nav nav-tabs mb-3" id="customerTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info-tab-pane" type="button" role="tab">{{ __('panel/customer.basic_info') }}</button>
+              <button class="nav-link active text-bold-primary-color" id="info-tab" data-bs-toggle="tab" data-bs-target="#info-tab-pane" type="button" role="tab">{{ __('panel/customer.basic_info') }}</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="address-tab" data-bs-toggle="tab" data-bs-target="#address-tab-pane" type="button" role="tab">{{ __('panel/customer.address_manage') }}</button>
+              <button class="nav-link text-bold-primary-color" id="address-tab" data-bs-toggle="tab" data-bs-target="#address-tab-pane" type="button" role="tab">{{ __('panel/customer.address_manage') }}</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="balance-tab" data-bs-toggle="tab" data-bs-target="#balance-tab-pane" type="button" role="tab">{{ __('panel/customer.balance_manage') }}</button>
+              <button class="nav-link text-bold-primary-color" id="balance-tab" data-bs-toggle="tab" data-bs-target="#balance-tab-pane" type="button" role="tab">{{ __('panel/customer.balance_manage') }}</button>
             </li>
             @hookinsert('panel.customer.edit.tab.nav.bottom')
           </ul>

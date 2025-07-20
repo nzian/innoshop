@@ -1,9 +1,12 @@
-<div class="tab-pane fade mt-3" id="seo-tab-pane" role="tabpanel" aria-labelledby="seo-tab"
-     tabindex="4">
-  <x-common-form-input :title="__('panel/common.slug')" name="slug" :value="old('slug', $product->slug ?? '')"
+<div class="tab-pane fade mt-3" id="seo-tab-pane" role="tabpanel" aria-labelledby="seo-tab" tabindex="4">
+  
+  <!-- Slug Input -->
+  <x-common-form-input :title="__('panel/common.slug')" name="slug"
+                       :value="old('slug', $product->slug ?? '')"
                        :placeholder="__('panel/common.slug')"
                        column="product_slug" :generate="true"/>
 
+  <!-- Locale Tabs -->
   <ul class="nav nav-tabs mt-3" id="seo-myTab" role="tablist">
     @foreach (locales() as $locale)
       @php($localeCode = $locale->code)
@@ -22,53 +25,72 @@
       </li>
     @endforeach
   </ul>
-  <div class="tab-content border p-2" id="seo-myTabContent">
+
+  <!-- Tab Content -->
+  <div class="tab-content border p-3" id="seo-myTabContent">
     @foreach (locales() as $locale)
       @php($localeCode = $locale->code)
-      @php($localeName = $locale->name)
       <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
            id="seo-{{ $localeCode }}-tab-pane" role="tabpanel"
            aria-labelledby="seo-{{ $localeCode }}-tab" tabindex="0">
-        <div class="mb-3 locale-code" data-locale-code={{ $localeCode }}>
-          <input type="hidden" name="translations[{{ $localeCode }}][locale]"
-                 value="{{ $localeCode }}">
+        
+        <input type="hidden" name="translations[{{ $localeCode }}][locale]" value="{{ $localeCode }}">
 
-          <x-common-form-textarea title="{{ __('panel/product.summary') }}"
-                                  name="translations[{{ $localeCode }}][summary]"
-                                  value="{{ old('translations.' . $localeCode . '.summary', $product->translate($localeCode, 'summary')) }}"
-                                  placeholder="{{ __('panel/product.summary') }}" column="product_summary"
-                                  :generate="true"
-                                  :translate="true" description="{{ __('panel/product.summary_description') }}"
-                                  :locale-code="$localeCode"/>
+        <!-- ✅ Two Column Layout -->
+        <div class="row g-3">
+          <!-- ✅ Left Column -->
 
-          <x-common-form-textarea title="{{ __('panel/product.selling_point') }}"
-                                  name="translations[{{ $localeCode }}][selling_point]"
-                                  value="{{ old('translations.' . $localeCode . '.selling_point', $product->translate($localeCode, 'selling_point')) }}"
-                                  placeholder="{{ __('panel/product.selling_point') }}" column="product_selling_point"
-                                  :generate="true" :translate="true" description="{{ __('panel/product.selling_point_description') }}"
-                                  :locale-code="$localeCode"/>
+                    <div class="col-12 col-lg-6">
+                      <div class="card m-2 p-4">
+                             <x-common-form-input title="{{ __('panel/common.meta_title') }}"
+                                 name="translations[{{ $localeCode }}][meta_title]"
+                                 value="{{ old('translations.' . $localeCode . '.meta_title', $product->translate($localeCode, 'meta_title')) }}"
+                                 :translate="true" placeholder="{{ __('panel/common.meta_title') }}"
+                                 column="product_title" description="{{ __('panel/product.meta_title_description') }}"
+                                 :generate="true" :locale-code="$localeCode"/>
 
-          <x-common-form-input title="{{ __('panel/common.meta_title') }}"
-                               name="translations[{{ $localeCode }}][meta_title]"
-                               value="{{ old('translations.' . $localeCode . '.meta_title', $product->translate($localeCode, 'meta_title')) }}"
-                               :translate="true" placeholder="{{ __('panel/common.meta_title') }}"
-                               column="product_title" description="{{ __('panel/product.meta_title_description') }}"
-                               :generate="true"
-                               :locale-code="$localeCode"/>
+            <x-common-form-textarea title="{{ __('panel/common.meta_description') }}"
+                                    name="translations[{{ $localeCode }}][meta_description]"
+                                    value="{{ old('translations.' . $localeCode . '.meta_description', $product->translate($localeCode, 'meta_description')) }}"
+                                    placeholder="{{ __('panel/common.meta_description') }}" column="product_description"
+                                    :translate="true" :generate="true"
+                                    description="{{ __('panel/product.meta_description_description') }}"
+                                    :locale-code="$localeCode"/>
 
-          <x-common-form-textarea title="{{ __('panel/common.meta_description') }}"
-                                  name="translations[{{ $localeCode }}][meta_description]"
-                                  value="{{ old('translations.' . $localeCode . '.meta_description', $product->translate($localeCode, 'meta_description')) }}"
-                                  placeholder="{{ __('panel/common.meta_description') }}" column="product_description"
-                                  :translate="true" :generate="true" description="{{ __('panel/product.meta_description_description') }}"
-                                  :locale-code="$localeCode"/>
+            <x-common-form-textarea title="{{ __('panel/common.meta_keywords') }}"
+                                    name="translations[{{ $localeCode }}][meta_keywords]"
+                                    value="{{ old('translations.' . $localeCode . '.meta_keywords', $product->translate($localeCode, 'meta_keywords')) }}"
+                                    placeholder="{{ __('panel/common.meta_keywords') }}" column="product_keywords"
+                                    :translate="true" :generate="true"
+                                    description="{{ __('panel/product.meta_keywords_description') }}"
+                                    :locale-code="$localeCode"/>
+                      </div>
+       
+          </div>
 
-          <x-common-form-textarea title="{{ __('panel/common.meta_keywords') }}"
-                               name="translations[{{ $localeCode }}][meta_keywords]"
-                               value="{{ old('translations.' . $localeCode . '.meta_keywords', $product->translate($localeCode, 'meta_keywords')) }}"
-                               placeholder="{{ __('panel/common.meta_keywords') }}" column="product_keywords"
-                               :translate="true" :generate="true" description="{{ __('panel/product.meta_keywords_description') }}"
-                               :locale-code="$localeCode"/>
+
+          <!-- ✅ Right Column -->
+
+
+                    <div class="col-12 col-lg-6">
+                      <div class="card m-2 p-4">
+                                    <x-common-form-textarea title="{{ __('panel/product.summary') }}"
+                                    name="translations[{{ $localeCode }}][summary]"
+                                    value="{{ old('translations.' . $localeCode . '.summary', $product->translate($localeCode, 'summary')) }}"
+                                    placeholder="{{ __('panel/product.summary') }}" column="product_summary"
+                                    :generate="true" :translate="true"
+                                    description="{{ __('panel/product.summary_description') }}"
+                                    :locale-code="$localeCode"/>
+
+            <x-common-form-textarea title="{{ __('panel/product.selling_point') }}"
+                                    name="translations[{{ $localeCode }}][selling_point]"
+                                    value="{{ old('translations.' . $localeCode . '.selling_point', $product->translate($localeCode, 'selling_point')) }}"
+                                    placeholder="{{ __('panel/product.selling_point') }}" column="product_selling_point"
+                                    :generate="true" :translate="true"
+                                    description="{{ __('panel/product.selling_point_description') }}"
+                                    :locale-code="$localeCode"/>
+                      </div>
+          </div>
         </div>
       </div>
     @endforeach

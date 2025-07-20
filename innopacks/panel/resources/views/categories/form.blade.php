@@ -40,30 +40,38 @@
                       <input name="translations[{{ $localeCode }}][locale]" value="{{ $localeCode }}"
                         class="d-none">
 
-                      <x-common-form-input title="{{ panel_trans('category.name') }}"
-                        name="translations[{{ $localeCode }}][name]" :translate="true"
-                        value="{{ old('translations.' . $localeCode . '.name', $category->translate($localeCode, 'name')) }}"
-                        required placeholder="{{ panel_trans('category.name') }}" />
+                      <div class="row">
+                        <!-- First Column: Name & Content -->
+                        <div class="col-md-6">
+                          <x-common-form-input title="{{ panel_trans('category.name') }}"
+                            name="translations[{{ $localeCode }}][name]" :translate="true"
+                            value="{{ old('translations.' . $localeCode . '.name', $category->translate($localeCode, 'name')) }}"
+                            required placeholder="{{ panel_trans('category.name') }}" />
 
-                      <x-common-form-textarea title="{{ panel_trans('category.content') }}"
-                        name="translations[{{ $localeCode }}][content]" :translate="true"
-                        value="{{ old('translations.' . $localeCode . '.content', $category->translate($localeCode, 'content')) }}"
-                        placeholder="{{ panel_trans('category.content') }}" />
+                          <x-common-form-textarea title="{{ panel_trans('category.content') }}"
+                            name="translations[{{ $localeCode }}][content]" :translate="true"
+                            value="{{ old('translations.' . $localeCode . '.content', $category->translate($localeCode, 'content')) }}"
+                            placeholder="{{ panel_trans('category.content') }}" />
+                        </div>
 
-                      <x-common-form-input title="Meta Title" name="translations[{{ $localeCode }}][meta_title]"
-                        :translate="true"
-                        value="{{ old('translations.' . $localeCode . '.meta_title', $category->translate($localeCode, 'meta_title')) }}"
-                        placeholder="Meta Title" />
+                        <!-- Second Column: Meta fields -->
+                        <div class="col-md-6">
+                          <x-common-form-input title="Meta Title" name="translations[{{ $localeCode }}][meta_title]"
+                            :translate="true"
+                            value="{{ old('translations.' . $localeCode . '.meta_title', $category->translate($localeCode, 'meta_title')) }}"
+                            placeholder="Meta Title" />
 
-                      <x-common-form-input title="Meta Keywords" name="translations[{{ $localeCode }}][meta_keywords]"
-                        :translate="true"
-                        value="{{ old('translations.' . $localeCode . '.meta_keywords', $category->translate($localeCode, 'meta_keywords')) }}"
-                        placeholder="Meta Keywords" />
+                          <x-common-form-input title="Meta Keywords" name="translations[{{ $localeCode }}][meta_keywords]"
+                            :translate="true"
+                            value="{{ old('translations.' . $localeCode . '.meta_keywords', $category->translate($localeCode, 'meta_keywords')) }}"
+                            placeholder="Meta Keywords" />
 
-                      <x-common-form-input title="Meta Description"
-                        name="translations[{{ $localeCode }}][meta_description]" :translate="true"
-                        value="{{ old('translations.' . $localeCode . '.meta_description', $category->translate($localeCode, 'meta_description')) }}"
-                        placeholder="Meta Description" />
+                          <x-common-form-input title="Meta Description"
+                            name="translations[{{ $localeCode }}][meta_description]" :translate="true"
+                            value="{{ old('translations.' . $localeCode . '.meta_description', $category->translate($localeCode, 'meta_description')) }}"
+                            placeholder="Meta Description" />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -3,7 +3,7 @@
 @section('title', __('panel/menu.products'))
 
 @section('page-title-right')
-  <a href="{{ panel_route('products.create') }}" class="btn btn-primary"><i class="bi bi-plus-square"></i> {{
+  <a href="{{ panel_route('products.create') }}" class="btn btn-primary button-primary"><i class="bi bi-plus-square"></i> {{
   __('panel/common.create') }}</a>
 @endsection
 
@@ -26,7 +26,7 @@
 
       @if ($products->count())
         <div class="table-responsive">
-          <table class="table align-middle">
+          <table class="table align-middle rounded border">
             <thead>
             <tr>
               <th><input class="form-check-input" @click="checkAll" type="checkbox" ref="checkAllBox"></th>
@@ -48,14 +48,14 @@
                 <td>{{ $product->id }}</td>
                 <td>
                   <div class="d-flex align-items-center justify-content-center wh-50 border">
-                    <a href="{{ $product->url }}" target="_blank">
+                    <a href="{{ $product->url }}" target="_blank" >
                       <img src="{{ $product->image_url }}" class="img-fluid"
                            alt="{{ $product->fallbackName() }}">
                     </a>
                   </div>
                 </td>
                 <td>
-                  <a href="{{ $product->url }}" class="text-decoration-none" target="_blank" data-bs-toggle="tooltip"
+                  <a href="{{ $product->url }}" class="text-decoration-none text-bold-primary-color" target="_blank" data-bs-toggle="tooltip"
                      title="{{ $product->fallbackName() }}">
                     {{ sub_string($product->fallbackName(),28) }}
                   </a>
@@ -68,31 +68,30 @@
                 <td>{{ $product->created_at }}</td>
                 <td>@include('panel::shared.list_switch', ['value' => $product->active, 'url' =>panel_route('products.active', $product->id)])</td>
                 <td>
-                  <div class="d-flex gap-2">
-                    <div>
-                      <a href="{{ panel_route('products.edit', [$product->id]) }}">
-                        <el-button size="small" plain type="primary">{{
-                        __('panel/common.edit')}}</el-button>
-                      </a>
-                    </div>
-                    <div>
-                      <a href="{{ panel_route('products.copy', [$product->id]) }}">
-                        <el-button size="small" plain type="warning">{{
-                        __('panel/common.copy')}}</el-button>
-                      </a>
-                    </div>
-                    <div>
-                      <form ref="deleteForm" action="{{ panel_route('products.destroy', [$product->id]) }}"
-                            method="POST"
-                            class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <el-button size="small" type="danger" plain @click="open({{$product->id}})">{{
-                        __('panel/common.delete')}}</el-button>
-                      </form>
-                    </div>
-                  </div>
-                </td>
+  <div class="dropdown">
+    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton{{ $product->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="bi bi-three-dots-vertical"></i>
+</button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $product->id }}">
+      <li>
+        <a class="dropdown-item" href="{{ panel_route('products.edit', [$product->id]) }}">
+          <i class="bi bi-pencil-square"></i> {{ __('panel/common.edit') }}
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item" href="{{ panel_route('products.copy', [$product->id]) }}">
+          <i class="bi bi-files"></i> {{ __('panel/common.copy') }}
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item text-danger" href="javascript:void(0)" @click="open({{ $product->id }})">
+          <i class="bi bi-trash"></i> {{ __('panel/common.delete') }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</td>
+
               </tr>
             @endforeach
             </tbody>

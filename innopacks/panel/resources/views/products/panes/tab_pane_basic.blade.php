@@ -1,74 +1,83 @@
-<div class="tab-pane fade show active mt-3" id="basic-tab-pane" role="tabpanel" aria-labelledby="basic-tab"
-     tabindex="0">
-  <div class="mb-3 col-12 col-md-5">
-    <label class="form-label">{{ __('panel/product.type') }}</label>
-    <select class="form-select" name="type" id="product-type" {{ $product->id ? 'disabled' : '' }} required>
-      @php
-        $productTypes = \InnoShop\Common\Repositories\ProductRepo::getProductTypes();
-        $currentType = old('type', $product->type ?? 'normal');
-      @endphp
-      @foreach($productTypes as $typeValue => $typeLabel)
-        <option value="{{ $typeValue }}" {{ $currentType == $typeValue ? 'selected' : '' }}>
-          {{ $typeLabel }}
-        </option>
-      @endforeach
-    </select>
-    @if($product->id)
-      <input type="hidden" name="type" value="{{ old('type', $product->type ?? 'normal') }}">
-    @endif
-    <div class="form-text">{{ __('panel/product.type_hint') }}</div>
-  </div>
+<div class="tab-pane fade show active mt-3" id="basic-tab-pane" role="tabpanel" aria-labelledby="basic-tab" tabindex="0">
 
-  <div class="mb-3 col-12 col-md-5">
-    <div class="mb-1 fs-6">{{ __('panel/product.name') }}</div>
-    @if(has_translator())
-      <div
-        class="d-flex align-items-center my-3 py-2 px-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3"
-        style="white-space: nowrap;">
-        <div class="d-flex align-items-center me-3">{{ __('panel/product.auto_translate') }}</div>
-        <select id="source-locale" class="form-select form-select-sm">
-          @foreach (locales() as $locale)
-            <option value="{{ $locale->code }}">{{ $locale->name }}</option>
-          @endforeach
-        </select>
-        <div class="px-1"><i class="bi bi-arrow-right"></i></div>
-        <select id="target-locale" class="form-select form-select-sm">
-          <option value="all">{{ __('panel/product.other_all') }}</option>
-          @foreach (locales() as $locale)
-            <option value="{{ $locale->code }}">{{ $locale->name }}</option>
-          @endforeach
-        </select>
-        <button type="button" class="mx-2 btn btn-primary btn-custom-small btn-sm" id="translate-button">
-          {{ __('panel/product.translate') }}
-        </button>
-      </div>
-    @endif
+  <div class="row mb-3">
+    <!-- Product Type -->
+    <div class="col-12 col-md-4">
+      <label class="form-label from-label-title">{{ __('panel/product.type') }}</label>
+      <select class="form-select" name="type" id="product-type" {{ $product->id ? 'disabled' : '' }} required>
+        @php
+          $productTypes = \InnoShop\Common\Repositories\ProductRepo::getProductTypes();
+          $currentType = old('type', $product->type ?? 'normal');
+        @endphp
+        @foreach($productTypes as $typeValue => $typeLabel)
+          <option value="{{ $typeValue }}" {{ $currentType == $typeValue ? 'selected' : '' }}>
+            {{ $typeLabel }}
+          </option>
+        @endforeach
+      </select>
+      @if($product->id)
+        <input type="hidden" name="type" value="{{ old('type', $product->type ?? 'normal') }}">
+      @endif
+      <div class="form-text">{{ __('panel/product.type_hint') }}</div>
+    </div>
 
+    <!-- Product Name -->
+    <div class="col-12 col-md-8">
+  <div class="mb-1 fs-6 from-label-title">{{ __('panel/product.name') }}</div>
+
+  @if(has_translator())
+    <div class="d-flex align-items-center my-3 py-2 px-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3 flex-wrap">
+      <div class="d-flex align-items-center me-3">{{ __('panel/product.auto_translate') }}</div>
+      <select id="source-locale" class="form-select form-select-sm me-2">
+        @foreach (locales() as $locale)
+          <option value="{{ $locale->code }}">{{ $locale->name }}</option>
+        @endforeach
+      </select>
+      <div class="px-1"><i class="bi bi-arrow-right"></i></div>
+      <select id="target-locale" class="form-select form-select-sm me-2">
+        <option value="all">{{ __('panel/product.other_all') }}</option>
+        @foreach (locales() as $locale)
+          <option value="{{ $locale->code }}">{{ $locale->name }}</option>
+        @endforeach
+      </select>
+      <button type="button" class="btn btn-primary btn-sm" id="translate-button">
+        {{ __('panel/product.translate') }}
+      </button>
+    </div>
+  @endif
+
+  <div class="row">
     @foreach (locales() as $locale)
       @php($localeCode = $locale->code)
       @php($localeName = $locale->name)
-      <div class="input-group">
-        <div class="input-group-text">
-          <div class="d-flex align-items-center wh-20">
-            <img src="{{ image_origin($locale->image) }}"
-                 class="img-fluid {{ default_locale_class($locale->code) }}"
-                 alt="{{ $localeName }}">
-          </div>
+      <div class="col-12 col-md-6 mb-2">
+        <div class="input-group">
+          <span class="input-group-text">
+            <img src="{{ image_origin($locale->image) }}" class="img-fluid {{ default_locale_class($locale->code) }}" style="width:20px; height:20px;" alt="{{ $localeName }}">
+          </span>
+          <input type="text" class="form-control" name="translations[{{ $localeCode }}][name]"
+                 value="{{ old('translations.' . $localeCode . '.name', $product->translate($localeCode, 'name')) }}"
+                 required placeholder="{{ $localeName }}" aria-label="{{ $localeName }}" data-locale="{{ $localeCode }}">
         </div>
-        <input type="text" class="form-control" name="translations[{{ $localeCode }}][name]"
-               value="{{ old('translations.' . $localeCode . '.name', $product->translate($localeCode, 'name')) }}"
-               required placeholder="{{ __('panel/product.name') }}" aria-label="{{ $localeName }}"
-               aria-describedby="basic-addon1" data-locale="{{ $localeCode }}">
       </div>
     @endforeach
-    <div class="mt-1 text-muted small">
-      <i class="bi bi-info-circle me-1"></i>{{ __('panel/product.name_required_hint') }}
-    </div>
   </div>
 
-  <x-common-form-images title="{{ __('panel/common.image') }}" name="images"
-                        :values="old('images', $product->images ?? [])"/>
+  <div class="mt-1 text-muted small">
+    <i class="bi bi-info-circle me-1"></i>{{ __('panel/product.name_required_hint') }}
+  </div>
+</div>
 
+  </div>
+
+  <!-- Images -->
+  <x-common-form-images 
+    title="{{ __('panel/common.image') }}" 
+    name="images"
+    title-class="form-label-title"
+    :values="old('images', $product->images ?? [])"/>
+
+  <!-- Price & Variant Section -->
   <div class="row mt-5 mb-4">
     <div class="col-12">
       <div class="mb-3" id="spec-type-group">
@@ -88,6 +97,7 @@
         </div>
       </div>
 
+      <!-- Single Price -->
       <div id="single_price_box" class="{{ $product->isMultiple() ? 'd-none' : '' }}">
         <div class="row">
           <div class="col-12 col-md-3">
@@ -111,7 +121,7 @@
         </div>
       </div>
       
-      <!-- Variant -->
+      <!-- Multiple Specs -->
       <div id="specifications_box" class="{{ !$product->isMultiple() ? 'd-none' : '' }}">
         <div class="alert alert-info mb-3" id="multi_spec_notice">
           <i class="bi bi-info-circle me-2"></i>
@@ -123,6 +133,7 @@
     </div>
   </div>
 
+  <!-- Status -->
   <x-common-form-switch-radio :title="__('panel/common.status')" name="active"
                               :value="old('active', $product->active ?? true)"/>
   @hookinsert('panel.product.edit.basic.after')
