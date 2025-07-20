@@ -8,26 +8,26 @@
 @endsection
 
 @section('content')
-<div class="card h-min-600" id="app">
+<div class="card" id="app">
   <div class="card-body">
 
     <x-panel-data-criteria :criteria="$criteria ?? []" :action="panel_route('customers.index')" />
 
     @if ($customers->count())
     <div class="table-responsive">
-      <table class="table align-middle">
+      <table class="table align-middle rounded border">
         <thead>
           <tr>
-            <td>{{ __('panel/common.id')}}</td>
-            <td>{{ __('panel/customer.customer_info') }}</td>
+            <td class="text-white">{{ __('panel/common.id')}}</td>
+            <td class="text-white">{{ __('panel/customer.customer_info') }}</td>
             @hookinsert('panel.customer.index.thead.bottom')
-            <td>{{ __('panel/customer.from') }}</td>
-            <td>{{ __('panel/customer.group') }}</td>
-            <td>{{ __('panel/customer.locale') }}</td>
+            <td class="text-white">{{ __('panel/customer.from') }}</td>
+            <td class="text-white">{{ __('panel/customer.group') }}</td>
+            <td class="text-white">{{ __('panel/customer.locale') }}</td>
             @hookinsert('panel.product.index.thead.bottom')
-            <td>{{ __('panel/common.created_at') }}</td>
-            <td>{{ __('panel/common.active') }}</td>
-            <td>{{ __('panel/common.actions') }}</td>
+            <td class="text-white">{{ __('panel/common.created_at') }}</td>
+            <td class="text-white">{{ __('panel/common.active') }}</td>
+            <td class="text-white">{{ __('panel/common.actions') }}</td>
           </tr>
         </thead>
         <tbody>
@@ -57,22 +57,39 @@
               $item)])
             </td>
             <td>
-              <div class="d-flex gap-1">
-                <a href="{{ panel_route('customers.login', [$item->id]) }}" target="_blank">
-                  <el-button size="small" plain type="primary">{{ __('panel/customer.login_frontend')}}</el-button>
-                </a>
-                <a href="{{ panel_route('customers.edit', [$item->id]) }}">
-                  <el-button size="small" plain type="primary">{{ __('panel/common.edit')}}</el-button>
-                </a>
-                <form ref="deleteForm" action="{{ panel_route('customers.destroy', [$item->id]) }}" method="POST"
-                  class="d-inline">
-                  @csrf
-                  @method('DELETE')
-                  <el-button size="small" type="danger" plain @click="open({{$item->id}})">{{
-                    __('panel/common.delete')}}</el-button>
-                </form>
-              </div>
-            </td>
+  <div class="dropdown">
+    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+            id="dropdownMenuButton{{ $item->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-three-dots-vertical"></i>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $item->id }}">
+      <!-- Login -->
+      <li>
+        <a class="dropdown-item" href="{{ panel_route('customers.login', [$item->id]) }}" target="_blank">
+          <i class="bi bi-box-arrow-in-right"></i> {{ __('panel/customer.login_frontend') }}
+        </a>
+      </li>
+      <!-- Edit -->
+      <li>
+        <a class="dropdown-item" href="{{ panel_route('customers.edit', [$item->id]) }}">
+          <i class="bi bi-pencil-square"></i> {{ __('panel/common.edit') }}
+        </a>
+      </li>
+      <!-- Delete -->
+      <li>
+        <a class="dropdown-item text-danger" href="javascript:void(0)" @click="open({{ $item->id }})">
+          <i class="bi bi-trash"></i> {{ __('panel/common.delete') }}
+        </a>
+        <form ref="deleteForm" action="{{ panel_route('customers.destroy', [$item->id]) }}"
+              method="POST" class="d-none">
+          @csrf
+          @method('DELETE')
+        </form>
+      </li>
+    </ul>
+  </div>
+</td>
+
           </tr>
           @endforeach
         </tbody>

@@ -662,7 +662,7 @@ body {
 
 .text-bold-primary-color {
     color: #3d767d !important;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1rem !important;
 }
 
@@ -717,6 +717,13 @@ font-weight: 500;
     border: 1px solid #3D767D !important;
 }
 
+.bg-dark-subtle{
+      background-color: #3D767D !important;
+}
+
+.el-button--primary {
+  background-color: #3D767D !important;
+}
 
 // .test-black{
 //   color: black;

@@ -8,22 +8,22 @@
 @endsection
 
 @section('content')
-<div class="card h-min-600" id="app">
+<div class="card" id="app">
   <div class="card-body">
 
     <x-panel-data-criteria :criteria="$criteria ?? []" :action="panel_route('customer_groups.index')" />
 
     @if ($groups->count())
     <div class="table-responsive">
-      <table class="table align-middle">
+      <table class="table align-middle rounded border">
         <thead>
           <tr>
-            <td>{{ __('panel/common.id') }}</td>
-            <td>{{ __('panel/common.name') }}</td>
-            <td>{{ __('panel/customer.level') }}</td>
-            <td>{{ __('panel/customer.mini_cost') }}</td>
-            <td>{{ __('panel/customer.discount_rate') }}</td>
-            <td>{{ __('panel/common.actions') }}</td>
+            <td class="text-white">{{ __('panel/common.id') }}</td>
+            <td class="text-white">{{ __('panel/common.name') }}</td>
+            <td class="text-white">{{ __('panel/customer.level') }}</td>
+            <td class="text-white">{{ __('panel/customer.mini_cost') }}</td>
+            <td class="text-white">{{ __('panel/customer.discount_rate') }}</td>
+            <td class="text-white">{{ __('panel/common.actions') }}</td>
           </tr>
         </thead>
         <tbody>
@@ -35,19 +35,32 @@
             <td>{{ currency_format($item->mini_cost, system_setting('currency')) }}</td>
             <td>{{ $item->discount_rate }}</td>
             <td>
-              <div class="d-flex gap-1">
-                <a href="{{ panel_route('customer_groups.edit', [$item->id]) }}">
-                  <el-button size="small" plain type="primary">{{ __('panel/common.edit')}}</el-button>
-                </a>
-                <form ref="deleteForm" action="{{ panel_route('customer_groups.destroy', [$item->id]) }}" method="POST"
-                  class="d-inline">
-                  @csrf
-                  @method('DELETE')
-                  <el-button size="small" type="danger" plain @click="open({{$item->id}})">{{
-                    __('panel/common.delete')}}</el-button>
-                </form>
-              </div>
-            </td>
+  <div class="dropdown">
+    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+            id="dropdownMenuButton{{ $item->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-three-dots-vertical"></i>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $item->id }}">
+      <!-- Edit -->
+      <li>
+        <a class="dropdown-item" href="{{ panel_route('customer_groups.edit', [$item->id]) }}">
+          <i class="bi bi-pencil-square"></i> {{ __('panel/common.edit') }}
+        </a>
+      </li>
+      <!-- Delete -->
+      <li>
+        <form ref="deleteForm{{ $item->id }}" action="{{ panel_route('customer_groups.destroy', [$item->id]) }}" method="POST">
+          @csrf
+          @method('DELETE')
+          <a class="dropdown-item text-danger" href="javascript:void(0)" @click="open({{ $item->id }})">
+            <i class="bi bi-trash"></i> {{ __('panel/common.delete') }}
+          </a>
+        </form>
+      </li>
+    </ul>
+  </div>
+</td>
+
           </tr>
           @endforeach
         </tbody>

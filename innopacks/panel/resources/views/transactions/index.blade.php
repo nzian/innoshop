@@ -15,7 +15,7 @@
 
       @if ($transactions->count())
         <div class="table-responsive">
-          <table class="table align-middle">
+          <table class="table align-middle rounded border">
             <thead>
             <tr>
               <td>{{ __('panel/common.id') }}</td>
