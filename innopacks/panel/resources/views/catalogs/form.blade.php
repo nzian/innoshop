@@ -38,29 +38,36 @@
                   <div id="data-locale-{{ $localeCode }}"
                     class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}" data-bs-parent="#data-locales">
                     <div class="accordion-body">
-                      <input name="translations[{{ $localeCode }}][locale]"
-                        value="{{ $localeCode }}" class="d-none">
+  <input name="translations[{{ $localeCode }}][locale]"
+    value="{{ $localeCode }}" class="d-none">
 
-                      <x-common-form-input title="{{ __('panel/article.title') }}"
-                        name="translations[{{ $localeCode }}][title]" :translate="true"
-                        value="{{ old('translations.' . $localeCode . '.title', $catalog->translate($localeCode, 'title')) }}" />
+  <div class="row">
+    <div class="col-md-6">
+      <x-common-form-input title="{{ __('panel/article.title') }}"
+        name="translations[{{ $localeCode }}][title]" :translate="true"
+        value="{{ old('translations.' . $localeCode . '.title', $catalog->translate($localeCode, 'title')) }}" />
 
-                      <x-common-form-input title="{{ __('panel/article.summary') }}"
-                        name="translations[{{ $localeCode }}][summary]" :translate="true"
-                        value="{{ old('translations.' . $localeCode . '.summary', $catalog->translate($localeCode, 'summary')) }}" />
+      <x-common-form-input title="{{ __('panel/setting.meta_title') }}"
+        name="translations[{{ $localeCode }}][meta_title]" :translate="true"
+        value="{{ old('translations.' . $localeCode . '.meta_title', $catalog->translate($localeCode, 'meta_title')) }}" />
 
-                      <x-common-form-input title="{{ __('panel/setting.meta_title') }}"
-                        name="translations[{{ $localeCode }}][meta_title]" :translate="true"
-                        value="{{ old('translations.' . $localeCode . '.meta_title', $catalog->translate($localeCode, 'meta_title')) }}" />
+      <x-common-form-input title="{{ __('panel/setting.meta_description') }}"
+        name="translations[{{ $localeCode }}][meta_description]" :translate="true"
+        value="{{ old('translations.' . $localeCode . '.meta_description', $catalog->translate($localeCode, 'meta_description')) }}" />
+    </div>
 
-                      <x-common-form-input title="{{ __('panel/setting.meta_keywords') }}"
-                        name="translations[{{ $localeCode }}][meta_keywords]" :translate="true"
-                        value="{{ old('translations.' . $localeCode . '.meta_keywords', $catalog->translate($localeCode, 'meta_keywords')) }}" />
+    <div class="col-md-6">
+      <x-common-form-input title="{{ __('panel/article.summary') }}"
+        name="translations[{{ $localeCode }}][summary]" :translate="true"
+        value="{{ old('translations.' . $localeCode . '.summary', $catalog->translate($localeCode, 'summary')) }}" />
 
-                      <x-common-form-input title="{{ __('panel/setting.meta_description') }}"
-                        name="translations[{{ $localeCode }}][meta_description]" :translate="true"
-                        value="{{ old('translations.' . $localeCode . '.meta_description', $catalog->translate($localeCode, 'meta_description')) }}" />
-                    </div>
+      <x-common-form-input title="{{ __('panel/setting.meta_keywords') }}"
+        name="translations[{{ $localeCode }}][meta_keywords]" :translate="true"
+        value="{{ old('translations.' . $localeCode . '.meta_keywords', $catalog->translate($localeCode, 'meta_keywords')) }}" />
+    </div>
+  </div>
+</div>
+
                   </div>
                 </div>
               @endforeach

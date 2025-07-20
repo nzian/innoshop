@@ -36,48 +36,54 @@
                     </button>
                   </h2>
                   <div id="data-locale-{{ $localeCode }}"
-                    class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}" data-bs-parent="#data-locales">
-                    <div class="accordion-body">
-                      <input name="translations[{{ $localeCode }}][locale]" value="{{ $localeCode }}"
-                        class="d-none">
+  class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}" data-bs-parent="#data-locales">
+  <div class="accordion-body">
+    <input name="translations[{{ $localeCode }}][locale]" value="{{ $localeCode }}" class="d-none">
 
-                      <x-common-form-input title="{{ __('panel/article.title') }}"
-                        name="translations[{{ $localeCode }}][title]" :translate="true"
-                        value="{{ old('translations.' . $localeCode . '.title', $article->translate($localeCode, 'title')) }}" />
+    <div class="row">
+      <div class="col-md-6">
+        <x-common-form-input title="{{ __('panel/article.title') }}"
+          name="translations[{{ $localeCode }}][title]" :translate="true"
+          value="{{ old('translations.' . $localeCode . '.title', $article->translate($localeCode, 'title')) }}" />
 
-                      <x-common-form-rich-text title="{{ __('panel/article.content') }}"
-                        name="translations[{{ $localeCode }}][content]" :translate="true" elID="content-{{ $localeCode }}"
-                        value="{{ old('translations.' . $localeCode . '.content', $article->translate($localeCode, 'content')) }}" />
+        <x-common-form-textarea title="{{ __('panel/article.summary') }}"
+          name="translations[{{ $localeCode }}][summary]"
+          value="{{ old('translations.' . $localeCode . '.summary', $article->translate($localeCode, 'summary')) }}"
+          :translate="true" column="article_summary"
+          description="{{ __('panel/article.summary_description') }}" />
 
-                      <x-common-form-textarea title="{{ __('panel/article.summary') }}"
-                        name="translations[{{ $localeCode }}][summary]"
-                        value="{{ old('translations.' . $localeCode . '.summary', $article->translate($localeCode, 'summary')) }}"
-                        :translate="true" column="article_summary"
-                        description="{{ __('panel/article.summary_description') }}" />
+        <x-common-form-input title="{{ __('panel/setting.meta_title') }}"
+          name="translations[{{ $localeCode }}][meta_title]"
+          value="{{ old('translations.' . $localeCode . '.meta_title', $article->translate($localeCode, 'meta_title')) }}"
+          :translate="true" column="article_title" :generate="true"
+          description="{{ __('panel/article.meta_title_description') }}" />
 
-                      <x-common-form-image title="{{ __('panel/article.image') }}"
-                        name="translations[{{ $localeCode }}][image]"
-                        value="{{ old('translations.' . $localeCode . '.image', $article->translate($localeCode, 'image')) }}" />
+          <x-common-form-textarea title="{{ __('panel/setting.meta_description') }}"
+          name="translations[{{ $localeCode }}][meta_description]"
+          value="{{ old('translations.' . $localeCode . '.meta_description', $article->translate($localeCode, 'meta_description')) }}"
+          :translate="true" column="article_description" :generate="true"
+          description="{{ __('panel/article.meta_description_description') }}" />
 
-                      <x-common-form-input title="{{ __('panel/setting.meta_title') }}"
-                        name="translations[{{ $localeCode }}][meta_title]"
-                        value="{{ old('translations.' . $localeCode . '.meta_title', $article->translate($localeCode, 'meta_title')) }}"
-                        :translate="true" column="article_title" :generate="true"
-                        description="{{ __('panel/article.meta_title_description') }}" />
+        <x-common-form-textarea title="{{ __('panel/setting.meta_keywords') }}"
+          name="translations[{{ $localeCode }}][meta_keywords]"
+          value="{{ old('translations.' . $localeCode . '.meta_keywords', $article->translate($localeCode, 'meta_keywords')) }}"
+          :translate="true" column="article_keywords" :generate="true"
+          description="{{ __('panel/article.meta_keywords_description') }}" />
+      </div>
 
-                      <x-common-form-textarea title="{{ __('panel/setting.meta_description') }}"
-                        name="translations[{{ $localeCode }}][meta_description]"
-                        value="{{ old('translations.' . $localeCode . '.meta_description', $article->translate($localeCode, 'meta_description')) }}"
-                        :translate="true" column="article_description" :generate="true"
-                        description="{{ __('panel/article.meta_description_description') }}" />
+      <div class="col-md-6">
+        <x-common-form-rich-text title="{{ __('panel/article.content') }}"
+          name="translations[{{ $localeCode }}][content]" :translate="true" elID="content-{{ $localeCode }}"
+          value="{{ old('translations.' . $localeCode . '.content', $article->translate($localeCode, 'content')) }}" />
 
-                      <x-common-form-textarea title="{{ __('panel/setting.meta_keywords') }}"
-                        name="translations[{{ $localeCode }}][meta_keywords]"
-                        value="{{ old('translations.' . $localeCode . '.meta_keywords', $article->translate($localeCode, 'meta_keywords')) }}"
-                        :translate="true" column="article_keywords" :generate="true"
-                        description="{{ __('panel/article.meta_keywords_description') }}" />
-                    </div>
-                  </div>
+        <x-common-form-image title="{{ __('panel/article.image') }}"
+          name="translations[{{ $localeCode }}][image]"
+          value="{{ old('translations.' . $localeCode . '.image', $article->translate($localeCode, 'image')) }}" />
+      </div>
+    </div>
+  </div>
+</div>
+
                 </div>
               @endforeach
             </div>

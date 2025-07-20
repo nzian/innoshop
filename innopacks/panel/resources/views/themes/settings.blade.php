@@ -16,11 +16,11 @@
           <div class="card-header">{{ __('panel/menu.themes_settings') }}</div>
           <div class="card-body">
             <ul class="nav flex-column settings-nav">
-              <a class="nav-link active" href="#" data-bs-toggle="tab"
+              <a class="nav-link active sidebar-secondary" href="#" data-bs-toggle="tab"
                  data-bs-target="#tab-setting-slideshow">{{ __('panel/setting.slideshow') }}</a>
-              <a class="nav-link" href="#" data-bs-toggle="tab"
+              <a class="nav-link sidebar-secondary" href="#" data-bs-toggle="tab"
                  data-bs-target="#tab-setting-header-menu">{{ __('panel/setting.header_menu') }}</a>
-              <a class="nav-link" href="#" data-bs-toggle="tab"
+              <a class="nav-link sidebar-secondary" href="#" data-bs-toggle="tab"
                  data-bs-target="#tab-setting-footer-menu">{{ __('panel/setting.footer_menu') }}</a>
             </ul>
           </div>

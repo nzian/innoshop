@@ -15,16 +15,16 @@
 
       @if ($catalogs->count())
       <div class="table-responsive">
-        <table class="table align-middle">
+        <table class="table align-middle rounded border">
         <thead>
         <tr>
-        <td>{{ __('panel/common.id')}}</td>
-        <td>{{ __('panel/catalog.title') }}</td>
-        <td>{{ __('panel/catalog.parent') }}</td>
-        <td>{{ __('panel/common.slug') }}</td>
-        <td>{{ __('panel/common.position') }}</td>
-        <td>{{ __('panel/common.active') }}</td>
-        <td>{{ __('panel/common.actions') }}</td>
+        <td class="text-white ">{{ __('panel/common.id')}}</td>
+        <td class="text-white ">{{ __('panel/catalog.title') }}</td>
+        <td class="text-white ">{{ __('panel/catalog.parent') }}</td>
+        <td class="text-white ">{{ __('panel/common.slug') }}</td>
+        <td class="text-white ">{{ __('panel/common.position') }}</td>
+        <td class="text-white ">{{ __('panel/common.active') }}</td>
+        <td class="text-white ">{{ __('panel/common.actions') }}</td>
         </tr>
         </thead>
         <tbody>
@@ -37,17 +37,33 @@
         <td>{{ $item->position }}</td>
         <td>@include('panel::shared.list_switch', ['value' => $item->active, 'url' => panel_route('catalogs.active', $item->id)])</td>
         <td>
-         <div class="d-flex gap-1">
-        <a href="{{ panel_route('catalogs.edit', [$item->id]) }}">
-        <el-button size="small" plain type="primary">{{ __('panel/common.edit')}}</el-button>
+  <div class="dropdown">
+    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+            id="dropdownMenuButton{{ $item->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-three-dots-vertical"></i>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $item->id }}">
+      <!-- Edit -->
+      <li>
+        <a class="dropdown-item" href="{{ panel_route('catalogs.edit', [$item->id]) }}">
+          <i class="bi bi-pencil-square"></i> {{ __('panel/common.edit') }}
         </a>
-        <form ref="deleteForm" action="{{ panel_route('catalogs.destroy', [$item->id]) }}" method="POST" class="d-inline">
-        @csrf
-        @method('DELETE')
-        <el-button size="small" type="danger" plain @click="open({{$item->id}})">{{ __('panel/common.delete')}}</el-button>
+      </li>
+
+      <!-- Delete -->
+      <li>
+        <form ref="deleteForm{{ $item->id }}" action="{{ panel_route('catalogs.destroy', [$item->id]) }}" method="POST">
+          @csrf
+          @method('DELETE')
+          <a class="dropdown-item text-danger" href="javascript:void(0)" @click="open({{ $item->id }})">
+            <i class="bi bi-trash"></i> {{ __('panel/common.delete') }}
+          </a>
         </form>
-        </div>
-        </td>
+      </li>
+    </ul>
+  </div>
+</td>
+
         </tr>
       @endforeach
         </tbody>
