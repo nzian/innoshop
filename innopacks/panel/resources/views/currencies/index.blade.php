@@ -23,7 +23,7 @@
 
       @if ($currencies->count())
         <div class="table-responsive">
-          <table class="table align-middle">
+          <table class="table align-middle rounded border">
             <thead>
             <tr>
               <th>{{ __('panel/common.id') }}</th>
@@ -56,18 +56,33 @@
                   $item->id)])
                 </td>
                 <td>
-                  <div class="d-flex gap-1">
-                    <el-button size="small" plain type="primary"
-                               @click="edit({{ $item->id }})">{{ __('panel/common.edit')}}
-                    </el-button>
-                    <form ref="deleteForm" action="{{ panel_route('currencies.destroy', [$item->id]) }}" method="POST"
-                          class="d-inline">
-                      @csrf
-                      @method('DELETE')
-                      <el-button size="small" type="danger" plain @click="open({{$item->id}})">{{
-                    __('panel/common.delete')}}</el-button>
-                    </form>
+                  <!-- Bootstrap 3-dots dropdown -->
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton{{ $item->id }}"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                      <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $item->id }}">
+                      <li>
+                        <a class="dropdown-item" href="javascript:void(0)" @click="edit({{ $item->id }})">
+                          <i class="bi bi-pencil-square"></i> {{ __('panel/common.edit') }}
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item text-danger" href="javascript:void(0)" @click="open({{ $item->id }})">
+                          <i class="bi bi-trash"></i> {{ __('panel/common.delete') }}
+                        </a>
+                      </li>
+                    </ul>
                   </div>
+                  <!-- Hidden delete form -->
+                  <form ref="deleteForm" action="{{ panel_route('currencies.destroy', [$item->id]) }}" method="POST" style="display:none;">
+                    @csrf
+                    @method('DELETE')
+                  </form>
                 </td>
               </tr>
             @endforeach

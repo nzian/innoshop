@@ -30,7 +30,7 @@
         <tbody>
           @foreach($tags as $item)
           <tr>
-            <td >{{ $item->id }}</td>
+            <td>{{ $item->id }}</td>
             <td>{{ $item->translation->name ?? '' }}</td>
             <td>{{ $item->slug }}</td>
             <td>{{ $item->position }}</td>
@@ -38,32 +38,32 @@
               @include('panel::shared.list_switch', ['value' => $item->active, 'url' => panel_route('tags.active',
               $item->id)])</td>
             <td>
-  <div class="dropdown">
-    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
-            id="dropdownMenuButton{{ $item->id }}" data-bs-toggle="dropdown" aria-expanded="false">
-      <i class="bi bi-three-dots-vertical"></i>
-    </button>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $item->id }}">
-      <!-- Edit -->
-      <li>
-        <a class="dropdown-item" href="{{ panel_route('tags.edit', [$item->id]) }}">
-          <i class="bi bi-pencil-square"></i> {{ __('panel/common.edit') }}
-        </a>
-      </li>
+              <div class="dropdown">
+                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+                  id="dropdownMenuButton{{ $item->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $item->id }}">
+                  <!-- Edit -->
+                  <li>
+                    <a class="dropdown-item" href="{{ panel_route('tags.edit', [$item->id]) }}">
+                      <i class="bi bi-pencil-square"></i> {{ __('panel/common.edit') }}
+                    </a>
+                  </li>
 
-      <!-- Delete -->
-      <li>
-        <form ref="deleteForm{{ $item->id }}" action="{{ panel_route('tags.destroy', [$item->id]) }}" method="POST">
-          @csrf
-          @method('DELETE')
-          <a class="dropdown-item text-danger" href="javascript:void(0)" @click="open({{ $item->id }})">
-            <i class="bi bi-trash"></i> {{ __('panel/common.delete') }}
-          </a>
-        </form>
-      </li>
-    </ul>
-  </div>
-</td>
+                  <!-- Delete -->
+                  <li>
+                    <form ref="deleteForm{{ $item->id }}" action="{{ panel_route('tags.destroy', [$item->id]) }}" method="POST">
+                      @csrf
+                      @method('DELETE')
+                      <a class="dropdown-item text-danger" href="javascript:void(0)" @click="open({{ $item->id }})">
+                        <i class="bi bi-trash"></i> {{ __('panel/common.delete') }}
+                      </a>
+                    </form>
+                  </li>
+                </ul>
+              </div>
+            </td>
 
           </tr>
           @endforeach
@@ -80,38 +80,46 @@
 
 @push('footer')
 <script>
-  const { createApp, ref } = Vue;
-    const { ElMessageBox, ElMessage } = ElementPlus;
+  const {
+    createApp,
+    ref
+  } = Vue;
+  const {
+    ElMessageBox,
+    ElMessage
+  } = ElementPlus;
 
-    const app = createApp({
+  const app = createApp({
     setup() {
       const deleteForm = ref(null);
 
       const open = (index) => {
-     ElMessageBox.confirm(
-        '{{ __("common/base.hint_delete") }}',
-        '{{ __("common/base.cancel") }}',
-        {
-        confirmButtonText: '{{ __("common/base.confirm")}}',
-        cancelButtonText: '{{ __("common/base.cancel")}}',
-        type: 'warning',
-        }
-      )
-      .then(() => {
-      const deleturl =urls.base_url+'/tags/'+index;
-      deleteForm.value.action=deleturl;
-      deleteForm.value.submit();
-      })
-      .catch(() => {
+        ElMessageBox.confirm(
+            '{{ __("common/base.hint_delete") }}',
+            '{{ __("common/base.cancel") }}', {
+              confirmButtonText: '{{ __("common/base.confirm")}}',
+              cancelButtonText: '{{ __("common/base.cancel")}}',
+              type: 'warning',
+            }
+          )
+          .then(() => {
+            const deleturl = urls.base_url + '/tags/' + index;
+            deleteForm.value.action = deleturl;
+            deleteForm.value.submit();
+          })
+          .catch(() => {
 
-      });
+          });
       };
 
-      return { open, deleteForm };
+      return {
+        open,
+        deleteForm
+      };
     }
-    });
+  });
 
-    app.use(ElementPlus);
-    app.mount('#app');
+  app.use(ElementPlus);
+  app.mount('#app');
 </script>
 @endpush

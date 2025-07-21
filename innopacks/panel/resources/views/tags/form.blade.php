@@ -28,7 +28,7 @@
                   aria-expanded="{{ $loop->first ? 'true' : 'false' }}" aria-controls="data-locale-{{ $localeCode }}">
                   <div class="d-flex align-items-center wh-20">
                     <img src="{{ image_origin($locale->image) }}" class="img-fluid {{ default_locale_class($locale->code) }}"
-                        alt="{{ $localeName }}">
+                      alt="{{ $localeName }}">
                   </div>&nbsp;
                   {{ $localeName }}
                 </button>
@@ -56,8 +56,7 @@
           <x-common-form-switch-radio title="{{ __('panel/common.whether_enable') }}" name="active" :value="old('active', $tag->active ?? true)"
             placeholder="{{ __('panel/common.whether_enable') }}" />
           <x-common-form-input title="{{ __('panel/common.slug') }}" name="slug" :value="old('slug', $tag->slug ?? '')" placeholder="{{ __('panel/common.slug') }}" />
-          <x-common-form-input title="{{ __('panel/common.position') }}" name="position" :value="old('position', $tag->position ?? 0)"
-            />
+          <x-common-form-input title="{{ __('panel/common.position') }}" name="position" :value="old('position', $tag->position ?? 0)" />
         </div>
       </div>
     </div>

@@ -16,31 +16,44 @@
         @csrf
         @method($admin->id ? 'PUT' : 'POST')
 
-        <x-common-form-input title="{{ __('panel/admin.name') }}" name="name" value="{{ old('name', $admin->name) }}" required />
-
-        <x-common-form-input title="{{ __('panel/admin.password') }}" name="password" value="{{ old('email') }}" />
-
-        <x-common-form-input title="{{ __('panel/admin.email') }}" name="email" value="{{ old('email', $admin->email) }}" required/>
-
-        <x-common-form-select title="{{ __('panel/admin.system_language') }}" name="locale" key="code" label="name" :options="locales()->toArray()" :empty-option="false" :value="old('locale', $admin->locale)" required/>
-
-        <x-panel::form.row title="{{ __('panel/admin.roles') }}" :required="true">
-          <div class="form-control px-0 border-0 d-flex flex-wrap">
-            @foreach ($roles as $item)
-              <div class="form-check me-2">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="checkbox" value="{{ $item->id }}" name="roles[]"
-                      {{ in_array($item->id, $admin->roles->pluck('id')->toArray()) ? 'checked' : '' }}>
-                  {{ $item->name }}
-                </label>
-              </div>
-            @endforeach
+        <div class="row g-3">
+          <div class="col-md-6">
+            <x-common-form-input title="{{ __('panel/admin.name') }}" name="name" value="{{ old('name', $admin->name) }}" required />
           </div>
-        </x-panel::form.row>
 
-        <x-common-form-switch-radio title="{{ __('panel/common.whether_enable') }}" name="active" :value="old('active', $page->active ?? true)"
-                                    placeholder="{{ __('panel/common.whether_enable') }}"/>
+          <div class="col-md-6">
+            <x-common-form-input title="{{ __('panel/admin.email') }}" name="email" value="{{ old('email', $admin->email) }}" required/>
+          </div>
 
+          <div class="col-md-6">
+            <x-common-form-input title="{{ __('panel/admin.password') }}" name="password" value="{{ old('email') }}" />
+          </div>
+
+          <div class="col-md-6">
+            <x-common-form-select title="{{ __('panel/admin.system_language') }}" name="locale" key="code" label="name" :options="locales()->toArray()" :empty-option="false" :value="old('locale', $admin->locale)" required/>
+          </div>
+
+          <div class="col-md-12">
+            <x-panel::form.row title="{{ __('panel/admin.roles') }}" :required="true">
+              <div class="form-control px-0 border-0 d-flex flex-wrap">
+                @foreach ($roles as $item)
+                  <div class="form-check me-2">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" value="{{ $item->id }}" name="roles[]"
+                          {{ in_array($item->id, $admin->roles->pluck('id')->toArray()) ? 'checked' : '' }}>
+                      {{ $item->name }}
+                    </label>
+                  </div>
+                @endforeach
+              </div>
+            </x-panel::form.row>
+          </div>
+
+          <div class="col-md-12">
+            <x-common-form-switch-radio title="{{ __('panel/common.whether_enable') }}" name="active" :value="old('active', $page->active ?? true)"
+                                        placeholder="{{ __('panel/common.whether_enable') }}"/>
+          </div>
+        </div>
 
         <button type="submit" class="d-none"></button>
       </form>

@@ -10,26 +10,27 @@
 @endpush
 
 @section('page-title-right')
-<button type="button" class="btn btn-primary btn-add" onclick="app.create()"><i class="bi bi-plus-square"></i> {{
-  __('panel/common.create') }}</button>
+<button type="button" class="btn btn-primary btn-add" onclick="app.create()">
+  <i class="bi bi-plus-square"></i> {{ __('panel/common.create') }}
+</button>
 @endsection
 
 @section('content')
 <div class="card h-min-600" id="app">
-  <div class="card-body">
+  <div class="card-body ">
 
     <x-panel-data-criteria :criteria="$criteria ?? []" :action="panel_route('tax_classes.index')" />
 
     @if ($tax_classes->count())
-    <div class="table-responsive">
-      <table class="table align-middle">
+    <div class="table-responsive h-min-600">
+      <table class="table align-middle rounded border ">
         <thead>
           <tr>
-            <td>{{ __('panel/common.id')}}</td>
-            <td>{{ __('panel/common.name') }}</td>
-            <td>{{ __('panel/common.description') }}</td>
-            <td>{{ __('panel/common.created_at') }}</td>
-            <td>{{ __('panel/common.actions') }}</td>
+            <td class="text-white">{{ __('panel/common.id')}}</td>
+            <td class="text-white">{{ __('panel/common.name') }}</td>
+            <td class="text-white">{{ __('panel/common.description') }}</td>
+            <td class="text-white">{{ __('panel/common.created_at') }}</td>
+            <td class="text-white">{{ __('panel/common.actions') }}</td>
           </tr>
         </thead>
         <tbody>
@@ -40,17 +41,34 @@
             <td>{{ $item->description }}</td>
             <td>{{ $item->created_at }}</td>
             <td>
-              <div class="d-flex gap-1">
-                <el-button size="small" plain type="primary" @click="edit({{ $item->id }})">{{ __('panel/common.edit')}}
-                </el-button>
-                <form ref="deleteForm" action="{{ panel_route('tax_classes.destroy', [$item->id]) }}" method="POST"
-                  class="d-inline">
-                  @csrf
-                  @method('DELETE')
-                  <el-button size="small" type="danger" plain @click="open({{$item->id}})">{{
-                    __('panel/common.delete')}}</el-button>
-                </form>
+              <div class="dropdown">
+                <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton{{ $item->id }}"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $item->id }}">
+                  <li>
+                    <a class="dropdown-item" href="javascript:void(0)" @click="edit({{ $item->id }})">
+                      <i class="bi bi-pencil-square"></i> {{ __('panel/common.edit') }}
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item text-danger" href="javascript:void(0)" @click="open({{ $item->id }})">
+                      <i class="bi bi-trash"></i> {{ __('panel/common.delete') }}
+                    </a>
+                  </li>
+                </ul>
               </div>
+
+              <!-- Hidden Delete Form -->
+              <form ref="deleteForm" action="{{ panel_route('tax_classes.destroy', [$item->id]) }}" 
+                    method="POST" style="display:none;">
+                @csrf
+                @method('DELETE')
+              </form>
             </td>
           </tr>
           @endforeach
@@ -90,22 +108,21 @@
             <tr v-for="(item, index) in form.tax_rules" :key="index">
               <td>
                 <select class="form-select form-select-sm country-select" v-model="item.tax_rate_id" required>
-                  <option v-for="item in source.tax_rates" :key="item . id" :value="item . id">@{{ item.name }}</option>
+                  <option v-for="item in source.tax_rates" :key="item.id" :value="item.id">@{{ item.name }}</option>
                 </select>
               </td>
               <td>
                 <select class="form-select form-select-sm" v-model="item.based" required>
-                  <option v-for="item in source.address_types" :key="item . code" :value="item . code">@{{ item.label }}
+                  <option v-for="item in source.address_types" :key="item.code" :value="item.code">@{{ item.label }}
                   </option>
                 </select>
               </td>
               <td>
                 <input type="text" class="form-control form-control-sm" v-model="item.priority"
-                  placeholder="{{ __('panel/tax_classes.priority') }}">
+                       placeholder="{{ __('panel/tax_classes.priority') }}">
               </td>
               <td class="text-end">
-                <el-button type="danger" @click="form.tax_rules.splice(index, 1)">{{ __('panel/common.delete')}}
-                </el-button>
+                <el-button type="danger" @click="form.tax_rules.splice(index, 1)">{{ __('panel/common.delete') }}</el-button>
               </td>
             </tr>
           </tbody>
@@ -132,112 +149,83 @@
 
 @push('footer')
 <script>
-</script>
-@endpush
+  const { createApp, ref, reactive, getCurrentInstance } = Vue;
+  const { ElMessageBox, ElMessage } = ElementPlus;
+  const api = @json(panel_route('tax_classes.index'));
 
-@push('footer')
-<script>
-  const { createApp, ref, reactive, onMounted, getCurrentInstance } = Vue;
-    const { ElMessageBox, ElMessage } = ElementPlus;
-    const api = @json(panel_route('tax_classes.index'));
-    const listApp = createApp({
+  const listApp = createApp({
     setup() {
-    const drawer = ref(false)
-    const { proxy } = getCurrentInstance();
+      const drawer = ref(false)
+      const { proxy } = getCurrentInstance();
 
-    const form = reactive({
-    id: 0,
-    name: '',
-    description: '',
-    tax_rules: [],
-    })
+      const form = reactive({
+        id: 0,
+        name: '',
+        description: '',
+        tax_rules: [],
+      })
 
-    const source = reactive({
-    tax_rates : @json($tax_rates ?? []),
-    address_types : @json($address_types ?? []),
-    });
+      const source = reactive({
+        tax_rates : @json($tax_rates ?? []),
+        address_types : @json($address_types ?? []),
+      });
 
-    const rules = {
+      const rules = {}
 
+      const edit = (id) => {
+        drawer.value = true
+        axios.get(`${api}/${id}`).then((res) => {
+          Object.keys(res).forEach(key => form.hasOwnProperty(key) && (form[key] = res[key]));
+        })
+      }
+
+      const submit = () => {
+        const url = form.id ? `${api}/${form.id}` : api
+        const method = form.id ? 'put' : 'post'
+        axios[method](url, form).then((res) => {
+          inno.msg(res.message)
+          drawer.value = false
+          window.location.reload()
+        })
+      }
+
+      const deleteForm = ref(null);
+      const close = () => proxy.$refs.formRef.resetFields()
+      const create = () => { drawer.value = true }
+
+      const addItem = () => {
+        form.tax_rules.push({
+          tax_rate_id: source.tax_rates[0]?.id || 0,
+          based: source.address_types[0]?.code || '',
+          priority: 0,
+        })
+      }
+
+      const open = (itemId) => {
+        ElMessageBox.confirm(
+          '{{ __("common/base.hint_delete") }}',
+          '{{ __("common/base.cancel") }}',
+          {
+            confirmButtonText: '{{ __("common/base.confirm")}}',
+            cancelButtonText: '{{ __("common/base.cancel")}}',
+            type: 'warning',
+          }
+        ).then(() => {
+          axios.delete(`{{ panel_name() }}/tax_classes/${itemId}`).then((res) => {
+            window.location.reload();
+          }).catch((err) => inno.msg(err.response.data.message));
+        }).catch(() => {});
+      };
+
+      return { drawer, form, edit, rules, close, submit, create, source, addItem, open, deleteForm }
     }
+  })
 
-    const edit = (id) => {
-    drawer.value = true
-    axios.get(`${api}/${id}`).then((res) => {
-    Object.keys(res).forEach(key => form.hasOwnProperty(key) && (form[key] = res[key]));
-    })
-    }
+  listApp.use(ElementPlus);
+  listApp.mount('#app');
 
-    const submit = () => {
-    const url = form.id ? `${api}/${form.id}` : api
-    const method = form.id ? 'put' : 'post'
-    axios[method](url, form).then((res) => {
-    inno.msg(res.message)
-    drawer.value = false
-    window.location.reload()
-    })
-    }
-    const deleteForm = ref(null);
-    const close = () => {
-    proxy.$refs.formRef.resetFields()
-    }
-
-    const create = () => {
-    drawer.value = true
-    }
-
-    const addItem = () => {
-    form.tax_rules.push({
-    tax_rate_id: source.tax_rates[0]?.id || 0,
-    based: source.address_types[0]?.code || '',
-    priority: 0,
-    })
-    }
-     const open = (itemId) => {
-     ElMessageBox.confirm(
-       '{{ __("common/base.hint_delete") }}',
-       '{{ __("common/base.cancel") }}',
-       {
-         confirmButtonText: '{{ __("common/base.confirm")}}',
-         cancelButtonText: '{{ __("common/base.cancel")}}',
-         type: 'warning',
-       }
-       )
-    .then(() => {
-    const deletUrl = urls.base_url + '/tax_classes/' + itemId;
-    deleteForm.value.action = deletUrl;
-    deleteForm.value.submit();
-    })
-    .catch(() => {
-
-    });
-    };
-    const exportFuns = {
-    drawer,
-    form,
-    edit,
-    rules,
-    close,
-    submit,
-    create,
-    source,
-    addItem,
-    open ,
-    deleteForm
-    }
-
-    window.app = exportFuns
-    return exportFuns;
-    }
-    })
-
-    listApp.use(ElementPlus);
-    listApp.mount('#app');
-
-    $(function () {
-    $('.btn-add').click(function () {
-    app.drawer.value = true
-    })
-    })
+  $(function () {
+    $('.btn-add').click(() => app.drawer.value = true)
+  })
 </script>
 @endpush

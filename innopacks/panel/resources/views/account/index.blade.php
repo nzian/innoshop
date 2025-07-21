@@ -8,7 +8,7 @@
 @section('content')
 <div class="row">
   <div class="col-md-6">
-    <div class="card h-min-600">
+    <div class="card ">
       <div class="card-body">
         <form class="needs-validation mt-3" id="app-form" novalidate action="{{ panel_route('account.update') }}" method="POST">
           @csrf
@@ -23,7 +23,7 @@
   </div>
 
   <div class="col-md-6">
-    <div class="card h-min-600">
+    <div class="card ">
       <div class="card-header">
         <h5 class="card-title mb-0">{{ __('panel/account.share_link') }}</h5>
       </div>
