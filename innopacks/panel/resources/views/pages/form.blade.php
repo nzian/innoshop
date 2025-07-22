@@ -40,50 +40,64 @@
               <div id="data-locale-{{ $localeCode }}"
                 class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}" data-bs-parent="#data-locales">
                 <div class="accordion-body">
-                  <input  name="translations[{{$localeCode}}][locale]" value="{{$localeCode}}" class="d-none">
+  <input name="translations[{{$localeCode}}][locale]" value="{{$localeCode}}" class="d-none">
 
-                  <x-common-form-input title="{{ __('panel/article.title') }}" name="translations[{{$localeCode}}][title]"
-                    :translate="true"  value="{{ old('translations.' . $localeCode . '.title', $page->translate($localeCode, 'title')) }}"/>
+  <div class="row">
+    <div class="col-md-6">
+      <x-common-form-input title="{{ __('panel/article.title') }}"
+        name="translations[{{$localeCode}}][title]"
+        :translate="true"
+        value="{{ old('translations.' . $localeCode . '.title', $page->translate($localeCode, 'title')) }}" />
 
-                  <x-panel::form.row title="{{ __('panel/article.content') }}" width="900" :translate="true">
-                    <ul class="nav nav-tabs mb-3 code-tabs" role="tablist">
-                      <li class="nav-item" role="presentation">
-                        <button class="nav-link active" data-bs-toggle="tab"
-                          data-bs-target="#tab-contentx-{{ $localeCode }}" type="button">{{ __('panel/article.content') }}
-                        </button>
-                      </li>
-                      <li class="nav-item" role="presentation">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-code-{{ $localeCode }}"
-                          type="button">{{ __('panel/page.theme') }}</button>
-                      </li>
-                    </ul>
+      <x-common-form-input title="{{ __('panel/setting.meta_title') }}"
+        name="translations[{{$localeCode}}][meta_title]"
+        :translate="true"
+        value="{{ old('translations.' . $localeCode . '.meta_title', $page->translate($localeCode, 'meta_title')) }}" />
 
-                    <div class="tab-content">
-                      <div class="tab-pane fade show active" id="tab-contentx-{{ $localeCode }}">
-                        <textarea rows="4" type="text" name="translations[{{$localeCode}}][content]" class="tinymce" id="content-{{ $localeCode }}"
-                          placeholder="{{ __('panel/article.content') }}">{{ old('translations.' . $localeCode . '.content', $page->translate($localeCode, 'content')) }}</textarea>
-                      </div>
-                      <div class="tab-pane fade show" id="tab-code-{{ $localeCode }}">
-                        <x-panel-form-codemirror title="{{ __('panel/page.theme') }}" name="translations[{{$localeCode}}][template]"
-                          value="{{ old('translations.' . $localeCode . '.template', $page->translate($localeCode, 'template')) }}"
-                          required  />
-                      </div>
-                    </div>
+    </div>
 
-                  </x-panel::form.row>
+    <div class="col-md-6">
+      <x-common-form-input title="{{ __('panel/setting.meta_description') }}"
+        name="translations[{{$localeCode}}][meta_description]"
+        :translate="true"
+        value="{{ old('translations.' . $localeCode . '.meta_description', $page->translate($localeCode, 'meta_description')) }}" />
+      <x-common-form-input title="{{ __('panel/setting.meta_keywords') }}"
+        name="translations[{{$localeCode}}][meta_keywords]"
+        :translate="true"
+        value="{{ old('translations.' . $localeCode . '.meta_keywords', $page->translate($localeCode, 'meta_keywords')) }}" />
+    </div>
+  </div>
 
-                  <x-common-form-input title="{{ __('panel/setting.meta_title') }}" name="translations[{{$localeCode}}][meta_title]"
-                    :translate="true"  value="{{ old('translations.' . $localeCode . '.meta_title', $page->translate($localeCode, 'meta_title')) }}"
-                     />
+  <!-- Full width content section -->
+  <x-panel::form.row title="{{ __('panel/article.content') }}" width="900" :translate="true">
+    <ul class="nav nav-tabs mb-3 code-tabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active text-bold-primary-color" data-bs-toggle="tab"
+          data-bs-target="#tab-contentx-{{ $localeCode }}" type="button">{{ __('panel/article.content') }}
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link text-bold-primary-color" data-bs-toggle="tab" data-bs-target="#tab-code-{{ $localeCode }}"
+          type="button">{{ __('panel/page.theme') }}</button>
+      </li>
+    </ul>
 
-                  <x-common-form-input title="{{ __('panel/setting.meta_keywords') }}" name="translations[{{$localeCode}}][meta_keywords]"
-                    :translate="true"  value="{{ old('translations.' . $localeCode . '.meta_keywords', $page->translate($localeCode, 'meta_keywords')) }}"
-                     />
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="tab-contentx-{{ $localeCode }}">
+        <textarea rows="4" type="text" name="translations[{{$localeCode}}][content]"
+          class="tinymce" id="content-{{ $localeCode }}"
+          placeholder="{{ __('panel/article.content') }}">{{ old('translations.' . $localeCode . '.content', $page->translate($localeCode, 'content')) }}</textarea>
+      </div>
+      <div class="tab-pane fade show" id="tab-code-{{ $localeCode }}">
+        <x-panel-form-codemirror title="{{ __('panel/page.theme') }}"
+          name="translations[{{$localeCode}}][template]"
+          value="{{ old('translations.' . $localeCode . '.template', $page->translate($localeCode, 'template')) }}"
+          required />
+      </div>
+    </div>
+  </x-panel::form.row>
+</div>
 
-                  <x-common-form-input title="{{ __('panel/setting.meta_description') }}" name="translations[{{$localeCode}}][meta_description]"
-                    :translate="true"  value="{{ old('translations.' . $localeCode . '.meta_description', $page->translate($localeCode, 'meta_description')) }}"
-                     />
-                </div>
               </div>
             </div>
             @endforeach

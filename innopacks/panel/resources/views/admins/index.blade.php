@@ -15,16 +15,16 @@
 
     @if ($admins->count())
     <div class="table-responsive">
-      <table class="table align-middle">
+      <table class="table align-middle rounded border">
         <thead>
           <tr>
-            <td>{{ __('panel/common.id') }}</td>
-            <td>{{ __('panel/admin.name') }}</td>
-            <td>{{ __('panel/admin.email') }}</td>
-            <td>{{ __('panel/admin.locale') }}</td>
-            <td>{{ __('panel/admin.roles') }}</td>
-            <td>{{ __('panel/admin.active') }}</td>
-            <td>{{ __('panel/common.actions') }}</td>
+            <td class="text-white">{{ __('panel/common.id') }}</td>
+            <td class="text-white">{{ __('panel/admin.name') }}</td>
+            <td class="text-white">{{ __('panel/admin.email') }}</td>
+            <td class="text-white">{{ __('panel/admin.locale') }}</td>
+            <td class="text-white">{{ __('panel/admin.roles') }}</td>
+            <td class="text-white">{{ __('panel/admin.active') }}</td>
+            <td class="text-white">{{ __('panel/common.actions') }}</td>
           </tr>
         </thead>
         <tbody>
@@ -38,19 +38,29 @@
             <td>@include('panel::shared.list_switch', ['value' => $item->active, 'url' => panel_route('admins.active',
               $item->id)])</td>
             <td>
-              <div class="d-flex gap-1">
-                <a href="{{ panel_route('admins.edit', [$item->id]) }}">
-                  <el-button size="small" plain type="primary">{{ __('panel/common.edit')}}</el-button>
-                </a>
-                <form ref="deleteForm" action="{{ panel_route('admins.destroy', [$item->id]) }}" method="POST"
-                  class="d-inline">
-                  @csrf
-                  @method('DELETE')
-                  <el-button size="small" type="danger" plain @click="open({{$item->id}})">{{
-                    __('panel/common.delete')}}</el-button>
-                </form>
+              <div class="dropdown">
+                <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i> <!-- Bootstrap icon -->
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a class="dropdown-item" href="{{ panel_route('admins.edit', [$item->id]) }}">
+                      {{ __('panel/common.edit') }}
+                    </a>
+                  </li>
+                  <li>
+                    <form action="{{ panel_route('admins.destroy', [$item->id]) }}" method="POST" class="d-inline">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="dropdown-item text-danger">
+                        {{ __('panel/common.delete') }}
+                      </button>
+                    </form>
+                  </li>
+                </ul>
               </div>
             </td>
+
           </tr>
           @endforeach
         </tbody>
@@ -66,37 +76,44 @@
 
 @push('footer')
 <script>
-  const { createApp, ref } = Vue;
-  const { ElMessageBox, ElMessage } = ElementPlus;
+  const {
+    createApp,
+    ref
+  } = Vue;
+  const {
+    ElMessageBox,
+    ElMessage
+  } = ElementPlus;
 
-    const app = createApp({
+  const app = createApp({
     setup() {
-    const deleteForm = ref(null);
+      const deleteForm = ref(null);
 
-    const open = (index) => {
-     ElMessageBox.confirm(
-      '{{ __("common/base.hint_delete") }}',
-      '{{ __("common/base.cancel") }}',
-      {
-        confirmButtonText: '{{ __("common/base.confirm")}}',
-        cancelButtonText: '{{ __("common/base.cancel")}}',
-        type: 'warning',
-      }
-      )
-      .then(() => {
-      const deleteUrl =urls.base_url+'/admins/'+index;
-      deleteForm.value.action=deleteUrl;
-      deleteForm.value.submit();
-      })
-      .catch(() => {
-      });
-    };
+      const open = (index) => {
+        ElMessageBox.confirm(
+            '{{ __("common/base.hint_delete") }}',
+            '{{ __("common/base.cancel") }}', {
+              confirmButtonText: '{{ __("common/base.confirm")}}',
+              cancelButtonText: '{{ __("common/base.cancel")}}',
+              type: 'warning',
+            }
+          )
+          .then(() => {
+            const deleteUrl = urls.base_url + '/admins/' + index;
+            deleteForm.value.action = deleteUrl;
+            deleteForm.value.submit();
+          })
+          .catch(() => {});
+      };
 
-    return { open, deleteForm };
+      return {
+        open,
+        deleteForm
+      };
     }
-    });
+  });
 
-    app.use(ElementPlus);
-    app.mount('#app');
+  app.use(ElementPlus);
+  app.mount('#app');
 </script>
 @endpush

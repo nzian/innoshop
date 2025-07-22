@@ -17,16 +17,16 @@
 
     @if ($countries)
     <div class="table-responsive">
-      <table class="table align-middle">
+      <table class="table align-middle rounded border">
         <thead>
           <tr>
-            <td>{{ __('panel/common.id')}}</td>
-            <td>{{ __('panel/common.name') }}</td>
-            <td>{{ __('panel/currency.code') }}</td>
-            <td>{{ __('panel/country.continent') }}</td>
-            <td>{{ __('panel/common.position') }}</td>
-            <td>{{ __('panel/common.status') }}</td>
-            <td>{{ __('panel/common.actions') }}</td>
+            <td class="text-white">{{ __('panel/common.id')}}</td>
+            <td class="text-white">{{ __('panel/common.name') }}</td>
+            <td class="text-white">{{ __('panel/currency.code') }}</td>
+            <td class="text-white">{{ __('panel/country.continent') }}</td>
+            <td class="text-white">{{ __('panel/common.position') }}</td>
+            <td class="text-white">{{ __('panel/common.status') }}</td>
+            <td class="text-white">{{ __('panel/common.actions') }}</td>
           </tr>
         </thead>
         <tbody>
@@ -46,24 +46,39 @@
               $item->id)])
             </td>
             <td>
-              <div class="d-flex gap-2">
-                <div>
-                  <a @click="edit({{ $item->id }})">
-                    <el-button size="small" plain type="primary">{{__('panel/common.edit')}}</el-button>
-                  </a>
-                </div>
-                <div>
-                  <form ref="deleteForm" action="{{ panel_route('countries.destroy', [$item->id]) }}" method="POST"
-                    class="d-inline">
-                    @csrf
-                    @method('DELETE')
-                    <el-button size="small" type="danger" plain @click="open({{$item->id}})">{{
-                      __('panel/common.delete')}}</el-button>
-                  </form>
-                </div>
-              </div>
-              </form>
+              <el-dropdown trigger="click">
+                <span class="el-dropdown-link">
+                  <el-button size="small" type="default" plain>
+                    <i class="bi bi-three-dots-vertical"></i> <!-- Bootstrap 3-dots icon -->
+                  </el-button>
+                </span>
+
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <!-- Edit -->
+                    <el-dropdown-item>
+                      <a @click.prevent="edit({{ $item->id }})" class="dropdown-item">
+                        <i class="bi bi-pencil-square"></i> {{ __('panel/common.edit') }}
+                      </a>
+                    </el-dropdown-item>
+
+                    <!-- Delete -->
+                    <el-dropdown-item divided>
+                      <a href="javascript:void(0)" class="dropdown-item text-danger" @click="open({{ $item->id }})">
+                        <i class="bi bi-trash"></i> {{ __('panel/common.delete') }}
+                      </a>
+                      <form ref="deleteForm" action="{{ panel_route('countries.destroy', [$item->id]) }}"
+                        method="POST" style="display:none;">
+                        @csrf
+                        @method('DELETE')
+                      </form>
+                    </el-dropdown-item>
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown>
             </td>
+
+
           </tr>
           @endforeach
         </tbody>
@@ -113,86 +128,95 @@
 @push('footer')
 <script>
   const api = @json(panel_route('countries.index'));
-    const {createApp, ref, reactive, onMounted, getCurrentInstance} = Vue;
-    const {ElMessageBox, ElMessage} = ElementPlus;
-    const listApp = createApp({
-      setup() {
-        const drawer = ref(false)
-        const {proxy} = getCurrentInstance();
-        const form = reactive({
-          id: 0,
-          name: '',
-          code: '',
-          continent: '',
-          position: '0',
-          active: 1
+  const {
+    createApp,
+    ref,
+    reactive,
+    onMounted,
+    getCurrentInstance
+  } = Vue;
+  const {
+    ElMessageBox,
+    ElMessage
+  } = ElementPlus;
+  const listApp = createApp({
+    setup() {
+      const drawer = ref(false)
+      const {
+        proxy
+      } = getCurrentInstance();
+      const form = reactive({
+        id: 0,
+        name: '',
+        code: '',
+        continent: '',
+        position: '0',
+        active: 1
+      })
+
+      const rules = {}
+
+      const edit = (id) => {
+        drawer.value = true
+        axios.get(`${api}/${id}`).then((res) => {
+          Object.keys(res).forEach(key => form.hasOwnProperty(key) && (form[key] = res[key]));
         })
+      }
 
-        const rules = {}
+      const submit = () => {
+        const url = form.id ? `${api}/${form.id}` : api
+        const method = form.id ? 'put' : 'post'
+        axios[method](url, form).then((res) => {
+          drawer.value = false
+          inno.msg(res.message)
+          window.location.reload()
+        }).catch((err) => {
+          inno.msg(err.response.data.message)
+        })
+      }
 
-        const edit = (id) => {
-          drawer.value = true
-          axios.get(`${api}/${id}`).then((res) => {
-            Object.keys(res).forEach(key => form.hasOwnProperty(key) && (form[key] = res[key]));
-          })
-        }
+      const close = () => {
+        proxy.$refs.formRef.resetFields()
+      }
 
-        const submit = () => {
-          const url = form.id ? `${api}/${form.id}` : api
-          const method = form.id ? 'put' : 'post'
-          axios[method](url, form).then((res) => {
-            drawer.value = false
-            inno.msg(res.message)
-            window.location.reload()
-          }).catch((err) => {
-            inno.msg(err.response.data.message)
-          })
-        }
-
-        const close = () => {
-          proxy.$refs.formRef.resetFields()
-        }
-
-        const create = () => {
-          drawer.value = true
-        }
-        const deleteForm = ref(null);
-        const open = (index) => {
-          ElMessageBox.confirm(
+      const create = () => {
+        drawer.value = true
+      }
+      const deleteForm = ref(null);
+      const open = (index) => {
+        ElMessageBox.confirm(
             '{{ __("common/base.hint_delete") }}',
-            '{{ __("common/base.cancel") }}',
-            {
+            '{{ __("common/base.cancel") }}', {
               confirmButtonText: '{{ __("common/base.confirm")}}',
               cancelButtonText: '{{ __("common/base.cancel")}}',
               type: 'warning',
             }
           )
-            .then(() => {
-              const deleteUrl = urls.base_url + '/countries/' + index;
-              deleteForm.value.action = deleteUrl;
-              deleteForm.value.submit();
-            })
-            .catch(() => {
-            });
-        };
-        const exportFuns = {
-          drawer,
-          form,
-          edit,
-          rules,
-          close,
-          submit,
-          create,
-          open,
-          deleteForm
-        }
-
-        window.app = exportFuns
-        return exportFuns;
+          .then(() => {
+            const deleteUrl = urls.base_url + '/countries/' + index;
+            deleteForm.value.action = deleteUrl;
+            deleteForm.value.submit();
+          })
+          .catch(() => {});
+      };
+      const exportFuns = {
+        drawer,
+        form,
+        edit,
+        rules,
+        close,
+        submit,
+        create,
+        open,
+        deleteForm
       }
-    })
 
-    listApp.use(ElementPlus);
-    listApp.mount('#app');
+      window.app = exportFuns
+      return exportFuns;
+    }
+  })
+
+  listApp.use(ElementPlus);
+  listApp.mount('#app');
 </script>
 @endpush

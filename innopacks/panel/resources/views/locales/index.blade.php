@@ -11,16 +11,16 @@
 
     @if ($locales)
     <div class="table-responsive">
-      <table class="table align-middle">
+      <table class="table align-middle rounded border">
         <thead>
           <tr>
-            <td>{{ __('panel/common.id') }}</td>
-            <td>{{ __('panel/common.logo') }}</td>
-            <td>{{ __('panel/common.name') }}</td>
-            <td>{{ __('panel/currency.code') }}</td>
-            <td>{{ __('panel/common.position') }}</td>
-            <td>{{ __('panel/common.status') }}</td>
-            <td>{{ __('panel/common.actions') }}</td>
+            <td class="text-white">{{ __('panel/common.id') }}</td>
+            <td class="text-white">{{ __('panel/common.logo') }}</td>
+            <td class="text-white">{{ __('panel/common.name') }}</td>
+            <td class="text-white">{{ __('panel/currency.code') }}</td>
+            <td class="text-white">{{ __('panel/common.position') }}</td>
+            <td class="text-white">{{ __('panel/common.status') }}</td>
+            <td class="text-white">{{ __('panel/common.actions') }}</td>
           </tr>
         </thead>
         <tbody>
