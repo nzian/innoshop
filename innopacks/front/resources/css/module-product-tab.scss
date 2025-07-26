@@ -24,12 +24,12 @@
       }
 
       &:hover {
-        background-color: #FFEBF2;
+        background-color: #FAF7F3;
       }
 
       &.active {
-        background-color: #FFEBF2;
-        color: $primary;
+        background-color: #FAF7F3;
+        color: #a52a2a !important;
       }
     }
   }

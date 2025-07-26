@@ -12,9 +12,9 @@
   @hookinsert('article.show.top')
 
   <div class="container mt-3 mt-md-5">
-    <div class="row">
+    <div class="row pb-4">
       <div class="col-12 col-md-9">
-        <div class="newest-box">
+        <div class="newest-box" style="background-color:#e9e5d5">
           <div class="newes-title">{{ $article->translation->title }}</div>
           @if ($article->tags->count())
           <div class="newes-tags mb-3 mt-n2">
@@ -42,20 +42,22 @@
         </div>
       </div>
       <div class="col-12 col-md-3">
-        <div class="newes-sidebar">
+        <div class="newes-sidebar" >
           <div class="search-box">
             <div class="input-group input-group-lg">
               <input type="text" class="form-control" value="{{ request('keyword') }}" placeholder="{{ __('front/article.keyword')}}">
               <button class="btn btn-primary" type="button">{{ __('front/article.search') }}</button>
             </div>
           </div>
-          <div class="sidebar-title">{{ __('front/article.news_classification' )}}</div>
+          <div style="background-color:#eee" class="p-4">
+            <div class="sidebar-title">{{ __('front/article.news_classification' )}}</div>
           <div class="sidebar-list">
             <ul>
               @foreach($catalogs as $catalog)
                 <li><a href="{{ $catalog->url }}">{{ $catalog->translation->title ?? '' }}</a></li>
               @endforeach
             </ul>
+          </div>
           </div>
         </div>
       </div>

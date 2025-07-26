@@ -1,6 +1,6 @@
 footer {
   position: relative;
-  background-color: #222222;
+  background-color: brown;
   overflow: hidden;
   margin-top: 20px;
 
@@ -45,12 +45,12 @@ footer {
   }
 
   .footer-box {
-    color: #aaa;
+    color: #fff;
     position: relative;
     z-index: 1;
 
     a {
-      color: #aaa;
+      color: #fff;
       position: relative;
 
       &:hover {
@@ -141,7 +141,7 @@ footer {
           padding: 6px 0;
           a {
             &:hover {
-              color: $primary;
+              color: #eae7dc;
               // text-decoration: underline;
             }
           }

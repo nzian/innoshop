@@ -47,7 +47,7 @@
     @include('layouts.header')
   @endif
 
-  <div class="m-0 p-0" id="appContent">
+  <div class="m-0 p-0 bg-color-primary-light" id="appContent" > 
       @yield('content')
   </div>
 

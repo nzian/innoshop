@@ -1,6 +1,12 @@
 .product-grid-item {
   margin-bottom: 16px;
 
+  
+  .border-radius-top-16{
+        border-top-left-radius: 16px !important;
+        border-top-right-radius: 16px !important;
+  }
+
   @media (min-width: 992px) {
     margin-bottom: 30px;
 
@@ -50,8 +56,8 @@
       font-size: 1rem;
       margin-top: 1rem;
       margin-bottom: .5rem;
-      font-weight: bold;
-      color: #222;
+      font-weight:500;
+      color: #4c4c37 !important;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -61,7 +67,7 @@
 
         &:hover {
           text-decoration: underline;
-          color: $primary;
+          color: brown !important;
         }
       }
     }
@@ -79,7 +85,7 @@
         font-weight: bold;
         font-size: 16px;
         text-decoration: underline;
-        color: $primary;
+        color: brown !important;
       }
     }
 
@@ -95,12 +101,13 @@
       .price-new {
         font-size: 1rem;
         font-weight: bold;
-        color: $price;
+        color: brown !important;
+;
       }
 
       .price-old {
         font-size: .9rem;
-        color: #768088;
+        color: #7f91a0;
         text-decoration: line-through;
         margin-left: 10px;
         margin-right: 10px;

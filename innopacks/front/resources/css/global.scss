@@ -519,3 +519,32 @@ a {
 input[type="password"] {
   font-family: 'Arial';
 }
+
+.module-content{
+  background-color: #EAE7DC;
+}
+
+  .bg-color-primary-light{
+    background-color: #EAE7DC;
+  }
+
+  .accordion {
+    --bs-accordion-bg: #eee;
+    font-size: 1rem;
+  }
+
+  .text-primary {
+    color: brown !important;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary{
+  background-color: brown !important;
+}
+.btn-wishlist{
+background-color: #d8c3a5 !important;
+border: 1px solid #d8c3a5 !important; 
+}

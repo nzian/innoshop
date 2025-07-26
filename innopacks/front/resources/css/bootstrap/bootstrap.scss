@@ -1,28 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* Primary theme variables */
 $primary: #E91E63;
 
 $font-size-base: 0.84rem;
 $border-radius: 0.275rem;
 
-// 开启负边距
+// Enable negative margins
 $enable-negative-margins: true;
-// $body-bg: #f7f8f4;
 
 $input-btn-focus-box-shadow: 0 0 11px 0 rgba($color: $primary, $alpha: .1);
 $input-bg: #fff;
 
 $form-select-focus-box-shadow: none;
-// $input-focus-box-shadow: none;
 
 $table-border-color: #e9ecef;
 $table-bg: transparent;
 
-$font-family-base: "Jost", Arial, sans-serif;
+/* Font Family Updated */
+$font-family-base: "Self Modern", ui-serif, serif;
 
 $border-radius: 0.275rem;
 $btn-border-radius-sm: 0.175rem;
 $btn-border-radius-lg: 0.275rem;
 $border-radius-lg: 0.275rem;
 
+/* Bootstrap Icons */
 $bootstrap-icons-font: "bootstrap-icons" !default;
 $bootstrap-icons-font-src: url("/vendor/bootstrap-icons/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb") format("woff2"),
 url("/vendor/bootstrap-icons/bootstrap-icons.woff?08efbba7c53d8c5413793eecb19b20bb") format("woff") !default;
@@ -33,6 +36,7 @@ url("/vendor/bootstrap-icons/bootstrap-icons.woff?08efbba7c53d8c5413793eecb19b20
   src: $bootstrap-icons-font-src;
 }
 
+/* Pagination */
 $pagination-border-width: 0;
 $pagination-bg: #f4f4f5;
 $pagination-color: #606266;
@@ -60,11 +64,13 @@ $pagination-focus-color: #606266;
   }
 }
  
+/* Accordion */
 .accordion-button:not(.collapsed) {
-  background-color:$primary; 
+  background-color: $primary; 
   color: rgb(12, 11, 11); 
 }
 
+/* Form Validation */
 $form-validation-states: (
   "invalid": (
     "color": #dc3545,
@@ -72,13 +78,6 @@ $form-validation-states: (
   )
 );
 
-// $container-max-widths: (
-//   sm: 540px,
-//   md: 720px,
-//   lg: 960px,
-//   xl: 1180px,
-//   xxl: 1380px
-// );
-
+/* Import Bootstrap and Icons */
 @import 'bootstrap-icons';
 @import '~bootstrap/scss/bootstrap';

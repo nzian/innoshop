@@ -4,8 +4,10 @@ body.page-categories {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
+    padding: 10px;
     margin-bottom: 26px;
+    background-color: #eee;
+    font-size: 1.1rem;
 
     .right {
       display: flex;
@@ -64,12 +66,17 @@ body.page-categories {
     display: none;
   }
 
+  .border-radius-top-16{
+        border-top-left-radius: 16px !important;
+        border-top-right-radius: 16px !important;
+  }
+
   .image:hover .wishlist-container {
     display: block;
   }
 
   .add-wishlist {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #D8C3A5;
     color: white;
     padding: 5px 10px;
     border-radius: 5px;
@@ -149,4 +156,8 @@ body.page-categories {
     padding-left: 20px;
     padding-top: 20px;
   }
+}
+
+.background-color-eee{
+  background-color: #eee !important;
 }
