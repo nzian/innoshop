@@ -1,10 +1,11 @@
 <div class="filter-sidebar" id="filterSidebar">
   <div class="filter-sidebar-item">
-    <div class="title">{{ __('front/category.category') }}</div>
-    <div class="content">
-      <div class="accordion" id="filter-category">
+    
+    <div class="content background-color-eee p-2">
+      <div class="title">{{ __('front/category.category') }}</div>
+      <div class="accordion" id="filter-category" style="background-color:#eee">
         @foreach ($categories as $key => $category)
-        <div class="accordion-item">
+        <div class="accordion-item px-2">
           <div class="accordion-title">
             <a href="{{ $category['url'] }}" class="">{{ $category['name'] }}</a>
             @if ($category['children'])

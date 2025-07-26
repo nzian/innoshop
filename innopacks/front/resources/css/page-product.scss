@@ -5,6 +5,9 @@ body.page-product {
     }
   }
 
+  .page-product{
+    background-color: #ebe6e7;
+  }
   .page-product-top {
     margin-bottom: 20px;
 
@@ -134,7 +137,7 @@ body.page-product {
         .price {
           font-size: 20px;
           font-weight: bold;
-          color: $price;
+          color: #BF0000;
 
           @media (min-width: 992px) {
             font-size: 26px;
@@ -153,8 +156,9 @@ body.page-product {
           font-weight: bold;
           font-size: 14px;
           &.in-stock {
-            color: #3FC158;
+            color: #5F9EA0;
             background-color: #EEF8EE;
+            font-size: 1rem;
           }
 
           &.out-stock {
